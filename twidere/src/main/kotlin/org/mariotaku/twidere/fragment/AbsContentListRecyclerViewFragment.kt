@@ -44,7 +44,7 @@ abstract class AbsContentListRecyclerViewFragment<A : LoadMoreSupportAdapter<Rec
     override fun setLoadMoreIndicatorPosition(@IndicatorPosition position: Long) {
         val decor = itemDecoration
         if (decor is DividerItemDecoration) {
-            decor.setDecorationStart(if (position and ILoadMoreSupportAdapter.START != 0L) 1 else 0)
+            decor.decorationStart = if (position and ILoadMoreSupportAdapter.START != 0L) 1 else 0
             decor.setDecorationEndOffset(if (position and ILoadMoreSupportAdapter.END != 0L) 1 else 0)
         }
         super.setLoadMoreIndicatorPosition(position)
