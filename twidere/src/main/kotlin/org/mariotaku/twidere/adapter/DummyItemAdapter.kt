@@ -3,11 +3,11 @@ package org.mariotaku.twidere.adapter
 import android.content.Context
 import android.support.v4.text.BidiFormatter
 import android.support.v7.widget.RecyclerView
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.R
-import org.mariotaku.twidere.TwidereConstants
 import org.mariotaku.twidere.adapter.iface.*
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter.IndicatorPosition
-import org.mariotaku.twidere.constant.SharedPreferenceConstants
+import org.mariotaku.twidere.constant.*
 import org.mariotaku.twidere.model.ParcelableStatus
 import org.mariotaku.twidere.model.ParcelableUser
 import org.mariotaku.twidere.model.ParcelableUserList
@@ -26,8 +26,9 @@ class DummyItemAdapter @JvmOverloads constructor(
         private val adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>? = null
 ) : IStatusesAdapter<Any>, IUsersAdapter<Any>, IUserListsAdapter<Any>, SharedPreferenceConstants {
 
-    private val preferences: SharedPreferencesWrapper
     override val mediaLoadingHandler: MediaLoadingHandler
+    @Inject
+    lateinit var preferences: KPreferences
     @Inject
     override lateinit var mediaLoader: MediaLoaderWrapper
     @Inject
@@ -58,7 +59,6 @@ class DummyItemAdapter @JvmOverloads constructor(
 
     init {
         GeneralComponentHelper.build(context).inject(this)
-        preferences = SharedPreferencesWrapper.getInstance(context, TwidereConstants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
         mediaLoadingHandler = MediaLoadingHandler(R.id.media_preview_progress)
         updateOptions()
     }
@@ -177,16 +177,16 @@ class DummyItemAdapter @JvmOverloads constructor(
     }
 
     fun updateOptions() {
-        profileImageStyle = Utils.getProfileImageStyle(preferences.getString(SharedPreferenceConstants.KEY_PROFILE_IMAGE_STYLE, null))
-        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences.getString(SharedPreferenceConstants.KEY_MEDIA_PREVIEW_STYLE, null))
-        textSize = preferences.getInt(SharedPreferenceConstants.KEY_TEXT_SIZE, context.resources.getInteger(R.integer.default_text_size)).toFloat()
-        nameFirst = preferences.getBoolean(SharedPreferenceConstants.KEY_NAME_FIRST, true)
-        profileImageEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_PROFILE_IMAGE, true)
-        mediaPreviewEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_MEDIA_PREVIEW, false)
-        sensitiveContentEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_SENSITIVE_CONTENTS, false)
-        showCardActions = !preferences.getBoolean(SharedPreferenceConstants.KEY_HIDE_CARD_ACTIONS, false)
-        linkHighlightingStyle = Utils.getLinkHighlightingStyleInt(preferences.getString(SharedPreferenceConstants.KEY_LINK_HIGHLIGHT_OPTION, null))
-        useStarsForLikes = preferences.getBoolean(SharedPreferenceConstants.KEY_I_WANT_MY_STARS_BACK)
-        isShowAbsoluteTime = preferences.getBoolean(SharedPreferenceConstants.KEY_SHOW_ABSOLUTE_TIME)
+        profileImageStyle = Utils.getProfileImageStyle(preferences[profileImageStyleKey])
+        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences[mediaPreviewStyleKey])
+        textSize = preferences[textSizeKey].toFloat()
+        nameFirst = preferences[nameFirstKey]
+        profileImageEnabled = preferences[displayProfileImageKey]
+        mediaPreviewEnabled = preferences[mediaPreviewKey]
+        sensitiveContentEnabled = preferences[displaySensitiveContentsKey]
+        showCardActions = !preferences[hideCardActionsKey]
+        linkHighlightingStyle = Utils.getLinkHighlightingStyleInt(preferences[linkHighlightOptionKey])
+        useStarsForLikes = preferences[iWantMyStarsBackKey]
+        isShowAbsoluteTime = preferences[showAbsoluteTimeKey]
     }
 }

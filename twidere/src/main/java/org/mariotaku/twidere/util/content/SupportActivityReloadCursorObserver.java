@@ -28,7 +28,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 
 import org.mariotaku.twidere.TwidereConstants;
 
-public final class SupportActivityReloadCursorObserver extends ContentObserver implements TwidereConstants {
+public final class SupportActivityReloadCursorObserver extends ContentObserver {
 
 	private final FragmentActivity mActivity;
 	private final int mLoaderId;

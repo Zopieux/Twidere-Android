@@ -32,7 +32,7 @@ import org.mariotaku.twidere.adapter.iface.IGapSupportedAdapter
 import org.mariotaku.twidere.adapter.iface.IItemCountsAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter
 import org.mariotaku.twidere.adapter.iface.IStatusesAdapter
-import org.mariotaku.twidere.constant.SharedPreferenceConstants.*
+import org.mariotaku.twidere.constant.*
 import org.mariotaku.twidere.model.ParcelableStatus
 import org.mariotaku.twidere.model.ParcelableStatusCursorIndices
 import org.mariotaku.twidere.model.UserKey
@@ -114,20 +114,20 @@ abstract class ParcelableStatusesAdapter(
     init {
         inflater = LayoutInflater.from(context)
         mediaLoadingHandler = MediaLoadingHandler(*progressViewIds)
-        textSize = preferences.getInt(KEY_TEXT_SIZE, context.resources.getInteger(R.integer.default_text_size)).toFloat()
-        profileImageStyle = Utils.getProfileImageStyle(preferences.getString(KEY_PROFILE_IMAGE_STYLE, null))
-        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences.getString(KEY_MEDIA_PREVIEW_STYLE, null))
-        linkHighlightingStyle = Utils.getLinkHighlightingStyleInt(preferences.getString(KEY_LINK_HIGHLIGHT_OPTION, null))
-        nameFirst = preferences.getBoolean(KEY_NAME_FIRST, true)
-        profileImageEnabled = preferences.getBoolean(KEY_DISPLAY_PROFILE_IMAGE, true)
+        textSize = preferences[textSizeKey].toFloat()
+        profileImageStyle = Utils.getProfileImageStyle(preferences[profileImageStyleKey])
+        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences[mediaPreviewStyleKey])
+        linkHighlightingStyle = Utils.getLinkHighlightingStyleInt(preferences[linkHighlightOptionKey])
+        nameFirst = preferences[nameFirstKey]
+        profileImageEnabled = preferences[displayProfileImageKey]
         mediaPreviewEnabled = Utils.isMediaPreviewEnabled(context, preferences)
-        sensitiveContentEnabled = preferences.getBoolean(KEY_DISPLAY_SENSITIVE_CONTENTS, false)
-        showCardActions = !preferences.getBoolean(KEY_HIDE_CARD_ACTIONS, false)
-        useStarsForLikes = preferences.getBoolean(KEY_I_WANT_MY_STARS_BACK)
-        isShowAbsoluteTime = preferences.getBoolean(KEY_SHOW_ABSOLUTE_TIME, false)
+        sensitiveContentEnabled = preferences[displaySensitiveContentsKey]
+        showCardActions = !preferences[hideCardActionsKey]
+        useStarsForLikes = preferences[iWantMyStarsBackKey]
+        isShowAbsoluteTime = preferences[showAbsoluteTimeKey]
         val handler = StatusAdapterLinkClickHandler<List<ParcelableStatus>>(context, preferences)
         twidereLinkify = TwidereLinkify(handler)
-        handler.setAdapter(this)
+        handler.adapter = this
         isShowInReplyTo = true
         setHasStableIds(true)
     }

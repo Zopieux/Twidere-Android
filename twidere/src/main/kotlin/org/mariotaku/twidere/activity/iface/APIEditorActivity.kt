@@ -46,9 +46,10 @@ import org.mariotaku.restfu.http.HttpResponse
 import org.mariotaku.restfu.http.RestHttpClient
 import org.mariotaku.twidere.BuildConfig
 import org.mariotaku.twidere.R
-import org.mariotaku.twidere.TwidereConstants.*
+import org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME
 import org.mariotaku.twidere.activity.BaseActivity
 import org.mariotaku.twidere.adapter.ArrayAdapter
+import org.mariotaku.twidere.constant.defaultAPIConfigKey
 import org.mariotaku.twidere.fragment.BaseDialogFragment
 import org.mariotaku.twidere.model.CustomAPIConfig
 import org.mariotaku.twidere.model.ParcelableCredentials
@@ -151,13 +152,7 @@ class APIEditorActivity : BaseActivity(), OnCheckedChangeListener, OnClickListen
         val consumerKey: String
         val consumerSecret: String
 
-        val pref = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        val prefApiUrlFormat = Utils.getNonEmptyString(pref, KEY_API_URL_FORMAT, DEFAULT_TWITTER_API_URL_FORMAT)
-        val prefAuthType = pref.getInt(KEY_AUTH_TYPE, ParcelableCredentials.AuthType.OAUTH)
-        val prefSameOAuthSigningUrl = pref.getBoolean(KEY_SAME_OAUTH_SIGNING_URL, false)
-        val prefNoVersionSuffix = pref.getBoolean(KEY_NO_VERSION_SUFFIX, false)
-        val prefConsumerKey = Utils.getNonEmptyString(pref, KEY_CONSUMER_KEY, TWITTER_CONSUMER_KEY)
-        val prefConsumerSecret = Utils.getNonEmptyString(pref, KEY_CONSUMER_SECRET, TWITTER_CONSUMER_SECRET)
+        val defaultAPIConfig = kPreferences[defaultAPIConfigKey]
         val bundle: Bundle
         if (savedInstanceState != null) {
             bundle = savedInstanceState
@@ -166,12 +161,12 @@ class APIEditorActivity : BaseActivity(), OnCheckedChangeListener, OnClickListen
         } else {
             bundle = Bundle()
         }
-        apiUrlFormat = Utils.trim(bundle.getString(Accounts.API_URL_FORMAT, prefApiUrlFormat))
-        authType = bundle.getInt(Accounts.AUTH_TYPE, prefAuthType)
-        sameOAuthSigningUrl = bundle.getBoolean(Accounts.SAME_OAUTH_SIGNING_URL, prefSameOAuthSigningUrl)
-        noVersionSuffix = bundle.getBoolean(Accounts.NO_VERSION_SUFFIX, prefNoVersionSuffix)
-        consumerKey = Utils.trim(bundle.getString(Accounts.CONSUMER_KEY, prefConsumerKey))
-        consumerSecret = Utils.trim(bundle.getString(Accounts.CONSUMER_SECRET, prefConsumerSecret))
+        apiUrlFormat = bundle.getString(Accounts.API_URL_FORMAT, defaultAPIConfig.apiUrlFormat).trim()
+        authType = bundle.getInt(Accounts.AUTH_TYPE, defaultAPIConfig.authType)
+        sameOAuthSigningUrl = bundle.getBoolean(Accounts.SAME_OAUTH_SIGNING_URL, defaultAPIConfig.isSameOAuthUrl)
+        noVersionSuffix = bundle.getBoolean(Accounts.NO_VERSION_SUFFIX, defaultAPIConfig.isNoVersionSuffix)
+        consumerKey = bundle.getString(Accounts.CONSUMER_KEY, defaultAPIConfig.consumerKey).trim()
+        consumerSecret = bundle.getString(Accounts.CONSUMER_SECRET, defaultAPIConfig.consumerSecret).trim()
 
         editAuthType.setOnCheckedChangeListener(this)
         editNoVersionSuffix.setOnCheckedChangeListener(this)

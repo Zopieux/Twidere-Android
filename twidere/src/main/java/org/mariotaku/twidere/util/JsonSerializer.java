@@ -126,7 +126,7 @@ public class JsonSerializer {
         } catch (IOException e) {
             return null;
         } finally {
-            Utils.closeSilently(is);
+            Utils.INSTANCE.closeSilently(is);
         }
     }
 

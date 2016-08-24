@@ -24,6 +24,10 @@ import org.mariotaku.twidere.fragment.BaseDialogFragment;
 
 import java.util.List;
 
+import static org.mariotaku.twidere.TwidereConstants.METADATA_KEY_PLUS_SERVICE_SIGN_IN_LABEL;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_ACTION_PLUS_SERVICE_SIGN_IN;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_ACTION_PLUS_SERVICE_SIGN_IN;
+
 public class PlusServiceDashboardActivity extends BaseActivity {
 
     private static final int REQUEST_PLUS_SERVICE_SIGN_IN = 101;

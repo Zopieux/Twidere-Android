@@ -23,7 +23,14 @@ import android.content.Intent;
 
 import org.mariotaku.twidere.TwidereConstants;
 
-public class ComposingStatus implements TwidereConstants {
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_IN_REPLY_TO_ID;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_IN_REPLY_TO_NAME;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_IN_REPLY_TO_SCREEN_NAME;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_NAME;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_SCREEN_NAME;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_TEXT;
+
+public class ComposingStatus {
 
     public final String text, name, screen_name, in_reply_to_screen_name, in_reply_to_name;
     public final long in_reply_to_id;

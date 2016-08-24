@@ -68,12 +68,12 @@ public class BitmapUtils {
         o.inJustDecodeBounds = false;
         if (o.outWidth > TwidereConstants.TWITTER_MAX_IMAGE_WIDTH || o.outHeight > TwidereConstants.TWITTER_MAX_IMAGE_HEIGHT) {
             // The image dimension is larger than Twitter's limit.
-            o.inSampleSize = Utils.calculateInSampleSize(o.outWidth, o.outHeight, TwidereConstants.TWITTER_MAX_IMAGE_WIDTH,
+            o.inSampleSize = Utils.INSTANCE.calculateInSampleSize(o.outWidth, o.outHeight, TwidereConstants.TWITTER_MAX_IMAGE_WIDTH,
                     TwidereConstants.TWITTER_MAX_IMAGE_HEIGHT);
             FileOutputStream fos = null;
             try {
                 final Bitmap b = BitmapDecodeHelper.decode(path, o);
-                final Bitmap.CompressFormat format = Utils.getBitmapCompressFormatByMimeType(o.outMimeType,
+                final Bitmap.CompressFormat format = Utils.INSTANCE.getBitmapCompressFormatByMimeType(o.outMimeType,
                         Bitmap.CompressFormat.PNG);
                 fos = new FileOutputStream(imageFile);
                 return b.compress(format, quality, fos);

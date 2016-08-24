@@ -43,6 +43,12 @@ import org.mariotaku.twidere.util.dagger.GeneralComponentHelper;
 
 import javax.inject.Inject;
 
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_ACCOUNT_KEY;
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_QUERY;
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_TYPE;
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_TYPE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_DISPLAY_PROFILE_IMAGE;
+
 public class ComposeAutoCompleteAdapter extends SimpleCursorAdapter implements Constants {
 
     private static final String[] FROM = new String[0];

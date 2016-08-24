@@ -57,6 +57,19 @@ import java.io.StringReader;
 import java.util.Set;
 
 import static android.text.TextUtils.isEmpty;
+import static org.mariotaku.twidere.TwidereConstants.LOGTAG;
+import static org.mariotaku.twidere.TwidereConstants.LOGTAG;
+import static org.mariotaku.twidere.TwidereConstants.OAUTH_CALLBACK_OOB;
+import static org.mariotaku.twidere.TwidereConstants.OAUTH_CALLBACK_URL;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_OAUTH_VERIFIER;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_OAUTH_VERIFIER;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_OAUTH_VERIFIER;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_REQUEST_TOKEN;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_REQUEST_TOKEN;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_REQUEST_TOKEN;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_REQUEST_TOKEN_SECRET;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_REQUEST_TOKEN_SECRET;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_REQUEST_TOKEN_SECRET;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class BrowserSignInActivity extends BaseActivity {

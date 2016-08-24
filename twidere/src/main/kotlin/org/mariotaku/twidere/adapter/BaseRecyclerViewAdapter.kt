@@ -22,6 +22,7 @@ package org.mariotaku.twidere.adapter
 import android.content.Context
 import android.support.v4.text.BidiFormatter
 import android.support.v7.widget.RecyclerView
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.util.*
 import org.mariotaku.twidere.util.dagger.GeneralComponentHelper
 import javax.inject.Inject
@@ -43,7 +44,7 @@ abstract class BaseRecyclerViewAdapter<VH : RecyclerView.ViewHolder>(
     @Inject
     lateinit var userColorNameManager: UserColorNameManager
     @Inject
-    lateinit var preferences: SharedPreferencesWrapper
+    lateinit var preferences: KPreferences
     @Inject
     lateinit var bidiFormatter: BidiFormatter
 

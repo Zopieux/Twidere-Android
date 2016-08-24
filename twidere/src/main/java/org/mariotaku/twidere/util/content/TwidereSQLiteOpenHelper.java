@@ -62,6 +62,11 @@ import org.mariotaku.twidere.util.TwidereQueryBuilder.DirectMessagesQueryBuilder
 
 import java.util.HashMap;
 
+import static org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME;
+import static org.mariotaku.twidere.TwidereConstants.TWITTER_CONSUMER_KEY_LEGACY;
+import static org.mariotaku.twidere.TwidereConstants.TWITTER_CONSUMER_SECRET_LEGACY;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_CONSUMER_KEY;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_CONSUMER_SECRET;
 import static org.mariotaku.twidere.util.Utils.trim;
 import static org.mariotaku.twidere.util.content.DatabaseUpgradeHelper.safeUpgrade;
 

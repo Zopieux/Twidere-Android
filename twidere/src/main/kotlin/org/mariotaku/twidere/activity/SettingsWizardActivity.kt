@@ -482,18 +482,17 @@ class SettingsWizardActivity : BaseActivity() {
                 val values = ContentValues()
                 val conf = CustomTabUtils.getTabConfiguration(type)
                 values.put(Tabs.TYPE, type)
-                values.put(Tabs.ICON, CustomTabUtils.findTabIconKey(conf.defaultIcon))
+                values.put(Tabs.ICON, CustomTabUtils.findTabIconKey(conf?.defaultIcon ?: 0))
                 values.put(Tabs.POSITION, i++)
                 values_list.add(values)
             }
-            for (spec in tabs) {
-                val type = CustomTabUtils.findTabType(spec.cls)
+            for ((name, icon, type1, cls, args) in tabs) {
+                val type = CustomTabUtils.findTabType(cls)
                 if (type != null) {
                     val values = ContentValues()
                     values.put(Tabs.TYPE, type)
-                    values.put(Tabs.ARGUMENTS, InternalParseUtils.bundleToJSON(spec.args))
-                    values.put(Tabs.NAME, ParseUtils.parseString(spec.name))
-                    val icon = spec.icon
+                    values.put(Tabs.ARGUMENTS, InternalParseUtils.bundleToJSON(args))
+                    values.put(Tabs.NAME, ParseUtils.parseString(name))
                     if (icon is Int) {
                         values.put(Tabs.ICON, CustomTabUtils.findTabIconKey(icon))
                     } else if (icon is File) {

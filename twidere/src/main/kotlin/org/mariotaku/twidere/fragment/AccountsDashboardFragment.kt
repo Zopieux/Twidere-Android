@@ -50,6 +50,7 @@ import android.view.View.OnClickListener
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.header_drawer_account_selector.view.*
+import org.mariotaku.ktextension.convert
 import org.mariotaku.ktextension.setItemAvailability
 import org.mariotaku.ktextension.setMenuItemIcon
 import org.mariotaku.ktextension.setMenuItemTitle
@@ -223,10 +224,7 @@ class AccountsDashboardFragment : BaseSupportFragment(), LoaderCallbacks<Account
         mUseStarsForLikes = preferences.getBoolean(KEY_I_WANT_MY_STARS_BACK)
 
         mAccountsAdapter!!.accounts = accounts
-        var accountKey = UserKey.valueOf(preferences.getString(KEY_DEFAULT_ACCOUNT_KEY, null))
-        if (accountKey == null) {
-            accountKey = defaultId
-        }
+        val accountKey = preferences.getString(KEY_DEFAULT_ACCOUNT_KEY, null)?.convert(UserKey::valueOf) ?: defaultId
         var selectedAccount: ParcelableAccount? = null
         for (account in accounts) {
             if (account.account_key.maybeEquals(accountKey)) {
@@ -796,3 +794,4 @@ class AccountsDashboardFragment : BaseSupportFragment(), LoaderCallbacks<Account
         }
     }
 }
+

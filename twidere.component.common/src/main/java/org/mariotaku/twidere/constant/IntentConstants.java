@@ -19,6 +19,58 @@
 
 package org.mariotaku.twidere.constant;
 
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+import static org.mariotaku.twidere.constant.IntentConstants.INTENT_PACKAGE_PREFIX;
+
 public interface IntentConstants {
 
     String INTENT_PACKAGE_PREFIX = "org.mariotaku.twidere.";

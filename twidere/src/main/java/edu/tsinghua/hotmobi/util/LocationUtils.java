@@ -31,7 +31,7 @@ public class LocationUtils implements HotMobiConstants, Constants {
         if (BuildConfig.DEBUG) {
             Log.d(HotMobiLogger.LOGTAG, "getting cached location");
         }
-        final Location location = Utils.getCachedLocation(appContext);
+        final Location location = Utils.INSTANCE.getCachedLocation(appContext);
         if (location == null) {
             return JsonSerializer.parse(prefs.getString(KEY_FALLBACK_CACHED_LOCATION, null), LatLng.class);
         }

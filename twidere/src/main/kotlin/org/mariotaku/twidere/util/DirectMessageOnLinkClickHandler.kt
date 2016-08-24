@@ -23,6 +23,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME
 import org.mariotaku.twidere.constant.IntentConstants.EXTRA_URI
 import org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_PHISHING_LINK_WARNING
@@ -31,7 +32,7 @@ import org.mariotaku.twidere.fragment.PhishingLinkWarningDialogFragment
 class DirectMessageOnLinkClickHandler(
         context: Context,
         manager: MultiSelectManager?,
-        preferences: SharedPreferencesWrapper
+        preferences: KPreferences
 ) : OnLinkClickHandler(context, manager, preferences) {
 
     override val isPrivateData: Boolean

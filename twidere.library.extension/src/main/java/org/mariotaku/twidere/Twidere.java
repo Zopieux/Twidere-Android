@@ -54,9 +54,20 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import static android.text.TextUtils.isEmpty;
+import static org.mariotaku.twidere.TwidereConstants.METADATA_KEY_EXTENSION_PERMISSIONS;
+import static org.mariotaku.twidere.TwidereConstants.PERMISSION_DENIED;
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_NAME;
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_URL;
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_URL;
+import static org.mariotaku.twidere.TwidereConstants.SEPARATOR_PERMISSION_REGEX;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_APPEND_TEXT;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_STATUS;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_TEXT;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_USER;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_USER_LIST;
 
 @SuppressWarnings("unused")
-public final class Twidere implements TwidereConstants {
+public final class Twidere {
 
     public static void appendComposeActivityText(final Activity activity, final String text) {
         if (activity == null) return;

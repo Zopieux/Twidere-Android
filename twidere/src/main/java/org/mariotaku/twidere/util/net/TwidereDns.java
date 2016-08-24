@@ -54,6 +54,11 @@ import javax.inject.Singleton;
 
 import okhttp3.Dns;
 
+import static org.mariotaku.twidere.TwidereConstants.HOST_MAPPING_PREFERENCES_NAME;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_BUILTIN_DNS_RESOLVER;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_DNS_SERVER;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_TCP_DNS_QUERY;
+
 @Singleton
 public class TwidereDns implements Dns, Constants {
 

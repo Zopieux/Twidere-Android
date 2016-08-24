@@ -32,7 +32,9 @@ import org.mariotaku.twidere.TwidereConstants;
 import org.mariotaku.twidere.model.ParcelableAccount;
 import org.mariotaku.twidere.model.UserKey;
 
-public class AccountToggleProvider extends ActionProvider implements TwidereConstants {
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_ACCOUNT;
+
+public class AccountToggleProvider extends ActionProvider {
 
     public static final int MENU_GROUP = 201;
 

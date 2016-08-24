@@ -20,8 +20,9 @@
 package org.mariotaku.twidere.util
 
 import android.content.Context
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.Constants
-import org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_NEW_DOCUMENT_API
+import org.mariotaku.twidere.constant.newDocumentApiKey
 import org.mariotaku.twidere.model.ParcelableMedia
 import org.mariotaku.twidere.model.ParcelableStatus
 import org.mariotaku.twidere.model.UserKey
@@ -29,7 +30,11 @@ import org.mariotaku.twidere.model.UserKey
 /**
  * Created by mariotaku on 15/1/23.
  */
-open class StatusLinkClickHandler(context: Context, manager: MultiSelectManager, preferences: SharedPreferencesWrapper) : OnLinkClickHandler(context, manager, preferences), Constants {
+open class StatusLinkClickHandler(
+        context: Context,
+        manager: MultiSelectManager,
+        preferences: KPreferences
+) : OnLinkClickHandler(context, manager, preferences), Constants {
 
     var status: ParcelableStatus? = null
 
@@ -41,7 +46,7 @@ open class StatusLinkClickHandler(context: Context, manager: MultiSelectManager,
             openLink(link)
         } else {
             IntentUtils.openMedia(context, status, current, null,
-                    preferences.getBoolean(KEY_NEW_DOCUMENT_API))
+                    preferences[newDocumentApiKey])
         }
     }
 

@@ -26,7 +26,6 @@ import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.iface.IBaseAdapter
 import org.mariotaku.twidere.model.ParcelableUser
 import org.mariotaku.twidere.model.UserKey
-import org.mariotaku.twidere.util.Utils.configBaseAdapter
 import org.mariotaku.twidere.util.Utils.getUserTypeIconRes
 import org.mariotaku.twidere.view.holder.TwoLineWithIconViewHolder
 
@@ -36,7 +35,7 @@ class SimpleParcelableUsersAdapter @JvmOverloads constructor(
 ) : BaseArrayAdapter<ParcelableUser>(context, layoutRes), IBaseAdapter {
 
     init {
-        configBaseAdapter(context, this)
+        config(context)
     }
 
     override fun getItemId(position: Int): Long {

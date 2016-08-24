@@ -30,7 +30,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 
 import org.mariotaku.twidere.TwidereConstants;
 
-public class SupportFragmentReloadCursorObserver extends ContentObserver implements TwidereConstants {
+public class SupportFragmentReloadCursorObserver extends ContentObserver {
 
     private final Fragment mFragment;
     private final int mLoaderId;

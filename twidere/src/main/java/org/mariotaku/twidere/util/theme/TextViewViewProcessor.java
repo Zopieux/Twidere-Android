@@ -11,6 +11,8 @@ import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.viewprocessors.ViewProcessor;
 
 import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_NAME_DARK;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_NAME_DARK;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_NAME_DARK;
 
 /**
  * Created by mariotaku on 16/3/30.

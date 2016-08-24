@@ -19,7 +19,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.mariotaku.twidere.TwidereConstants.DEFAULT_TWITTER_API_URL_FORMAT;
+import static org.mariotaku.twidere.TwidereConstants.DEFAULT_TWITTER_API_URL_FORMAT;
 import static org.mariotaku.twidere.TwidereConstants.TWITTER_CONSUMER_KEY;
+import static org.mariotaku.twidere.TwidereConstants.TWITTER_CONSUMER_KEY;
+import static org.mariotaku.twidere.TwidereConstants.TWITTER_CONSUMER_SECRET;
 import static org.mariotaku.twidere.TwidereConstants.TWITTER_CONSUMER_SECRET;
 
 /**

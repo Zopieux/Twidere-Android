@@ -28,12 +28,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.list_item_user.view.*
+import org.mariotaku.ktextension.toLocalizedString
 import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.iface.IUsersAdapter
 import org.mariotaku.twidere.adapter.iface.IUsersAdapter.*
 import org.mariotaku.twidere.model.ParcelableUser
 import org.mariotaku.twidere.model.util.UserKeyUtils
-import org.mariotaku.twidere.util.Utils.getLocalizedNumber
 import org.mariotaku.twidere.util.Utils.getUserTypeIconRes
 import org.mariotaku.twidere.view.NameView
 import org.mariotaku.twidere.view.iface.IColorLabelView
@@ -117,9 +117,9 @@ class UserViewHolder(
         urlView.visibility = if (TextUtils.isEmpty(user.url_expanded)) View.GONE else View.VISIBLE
         urlView.text = user.url_expanded
         val locale = Locale.getDefault()
-        statusesCountView.text = getLocalizedNumber(locale, user.statuses_count)
-        followersCountView.text = getLocalizedNumber(locale, user.followers_count)
-        friendsCountView.text = getLocalizedNumber(locale, user.friends_count)
+        statusesCountView.text = user.statuses_count.toLocalizedString(locale)
+        followersCountView.text = user.followers_count.toLocalizedString(locale)
+        friendsCountView.text = user.friends_count.toLocalizedString(locale)
         if (adapter.profileImageEnabled) {
             profileImageView.visibility = View.VISIBLE
             loader.displayProfileImage(profileImageView, user)

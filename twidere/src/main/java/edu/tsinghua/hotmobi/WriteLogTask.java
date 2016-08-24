@@ -41,6 +41,8 @@ import java.util.List;
 
 import edu.tsinghua.hotmobi.model.LogModel;
 
+import static org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME;
+
 /**
  * Created by mariotaku on 15/8/23.
  */

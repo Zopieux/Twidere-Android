@@ -38,7 +38,10 @@ import org.mariotaku.twidere.model.ParcelableStatus
 import org.mariotaku.twidere.model.UserKey
 import org.mariotaku.twidere.model.util.ParcelableCredentialsUtils
 import org.mariotaku.twidere.model.util.ParcelableStatusUtils
-import org.mariotaku.twidere.util.*
+import org.mariotaku.twidere.util.JsonSerializer
+import org.mariotaku.twidere.util.MicroBlogAPIFactory
+import org.mariotaku.twidere.util.SharedPreferencesWrapper
+import org.mariotaku.twidere.util.UserColorNameManager
 import org.mariotaku.twidere.util.dagger.GeneralComponentHelper
 import java.io.IOException
 import java.io.PipedInputStream
@@ -213,10 +216,7 @@ abstract class MicroBlogAPIStatusesLoader(
         }
 
     private val serializationKey: String?
-        get() {
-            if (savedStatusesArgs == null) return null
-            return TwidereArrayUtils.toString(savedStatusesArgs, '_', false)
-        }
+        get() = savedStatusesArgs?.joinToString("_")
 
     private fun saveCachedData(data: List<ParcelableStatus>?) {
         val key = serializationKey

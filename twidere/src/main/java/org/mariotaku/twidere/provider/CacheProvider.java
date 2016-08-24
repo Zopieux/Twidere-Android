@@ -33,12 +33,14 @@ import javax.inject.Inject;
 
 import okio.ByteString;
 
+import static org.mariotaku.twidere.TwidereConstants.QUERY_PARAM_TYPE;
+
 /**
  * Created by mariotaku on 16/1/1.
  */
-public class CacheProvider extends ContentProvider implements TwidereConstants {
+public class CacheProvider extends ContentProvider {
     @Inject
-    DiskCache mSimpleDiskCache;
+    @NonNull DiskCache simpleDiskCache;
 
     public static Uri getCacheUri(String key, @Type String type) {
         final Uri.Builder builder = new Uri.Builder();
@@ -98,7 +100,7 @@ public class CacheProvider extends ContentProvider implements TwidereConstants {
         if (type != null) {
             switch (type) {
                 case Type.IMAGE: {
-                    final File file = mSimpleDiskCache.get(getCacheKey(uri));
+                    final File file = simpleDiskCache.get(getCacheKey(uri));
                     if (file == null) return null;
                     return Utils.getImageMimeType(file);
                 }
@@ -114,7 +116,7 @@ public class CacheProvider extends ContentProvider implements TwidereConstants {
     }
 
     public CacheMetadata getMetadata(@NonNull Uri uri) {
-        final File file = mSimpleDiskCache.get(getMetadataKey(uri));
+        final File file = simpleDiskCache.get(getMetadataKey(uri));
         if (file == null) return null;
         FileInputStream is = null;
         try {
@@ -148,7 +150,7 @@ public class CacheProvider extends ContentProvider implements TwidereConstants {
     @Override
     public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
         try {
-            final File file = mSimpleDiskCache.get(getCacheKey(uri));
+            final File file = simpleDiskCache.get(getCacheKey(uri));
             if (file == null) throw new FileNotFoundException();
             final int modeBits = modeToMode(mode);
             if (modeBits != ParcelFileDescriptor.MODE_READ_ONLY)

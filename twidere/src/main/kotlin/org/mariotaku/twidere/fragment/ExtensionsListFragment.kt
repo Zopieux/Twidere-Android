@@ -65,7 +65,7 @@ class ExtensionsListFragment : BaseListFragment(), LoaderCallbacks<List<Extensio
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<ExtensionInfo>> {
-        return ExtensionsListLoader(activity, packageManager)
+        return ExtensionsListLoader(activity)
     }
 
     override fun onLoadFinished(loader: Loader<List<ExtensionInfo>>, data: List<ExtensionInfo>) {

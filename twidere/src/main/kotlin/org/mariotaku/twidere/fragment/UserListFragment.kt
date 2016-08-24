@@ -327,10 +327,14 @@ class UserListFragment : AbsToolbarTabPagesFragment(), OnClickListener, LoaderCa
 
     class EditUserListDialogFragment : BaseDialogFragment(), DialogInterface.OnClickListener {
 
+        val accountKey: UserKey
+            get() = arguments.getParcelable<UserKey>(EXTRA_ACCOUNT_KEY)
+        val listId: String
+            get() = arguments.getString(EXTRA_ACCOUNT_KEY)
+
         private var mName: String? = null
+
         private var mDescription: String? = null
-        private var mAccountKey: UserKey? = null
-        private var mListId: String? = null
         private var mIsPublic: Boolean = false
 
         override fun onClick(dialog: DialogInterface, which: Int) {
@@ -349,16 +353,15 @@ class UserListFragment : AbsToolbarTabPagesFragment(), OnClickListener, LoaderCa
                     update.setMode(if (isPublic) UserList.Mode.PUBLIC else UserList.Mode.PRIVATE)
                     update.setName(name)
                     update.setDescription(description)
-                    twitterWrapper.updateUserListDetails(mAccountKey, mListId, update)
+                    twitterWrapper.updateUserListDetails(accountKey, listId, update)
                 }
             }
 
         }
 
+
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val bundle = savedInstanceState ?: arguments
-            mAccountKey = bundle?.getParcelable<UserKey>(EXTRA_ACCOUNT_KEY)
-            mListId = bundle?.getString(EXTRA_LIST_ID)
             mName = bundle?.getString(EXTRA_LIST_NAME)
             mDescription = bundle?.getString(EXTRA_DESCRIPTION)
             mIsPublic = bundle == null || bundle.getBoolean(EXTRA_IS_PUBLIC, true)
@@ -388,8 +391,7 @@ class UserListFragment : AbsToolbarTabPagesFragment(), OnClickListener, LoaderCa
         }
 
         override fun onSaveInstanceState(outState: Bundle?) {
-            outState!!.putParcelable(EXTRA_ACCOUNT_KEY, mAccountKey)
-            outState.putString(EXTRA_LIST_ID, mListId)
+            outState!!.putParcelable(EXTRA_ACCOUNT_KEY, accountKey)
             outState.putString(EXTRA_LIST_NAME, mName)
             outState.putString(EXTRA_DESCRIPTION, mDescription)
             outState.putBoolean(EXTRA_IS_PUBLIC, mIsPublic)

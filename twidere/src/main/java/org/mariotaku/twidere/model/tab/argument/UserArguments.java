@@ -8,6 +8,9 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 
 import org.mariotaku.twidere.model.UserKey;
 
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_USER_KEY;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_USER_KEY;
+
 /**
  * Created by mariotaku on 16/3/6.
  */

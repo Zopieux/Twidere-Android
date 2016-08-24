@@ -28,6 +28,7 @@ import android.util.Log;
 
 import org.mariotaku.twidere.BuildConfig;
 import org.mariotaku.twidere.Constants;
+import org.mariotaku.twidere.TwidereConstants;
 import org.mariotaku.twidere.model.UserKey;
 import org.mariotaku.twidere.util.dagger.DependencyHolder;
 
@@ -45,6 +46,8 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
 import edu.tsinghua.hotmobi.model.LogModel;
+
+import static org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME;
 
 /**
  * Created by mariotaku on 15/8/10.
@@ -74,7 +77,7 @@ public class HotMobiLogger implements HotMobiConstants {
     }
 
     public static String getInstallationSerialId(Context context) {
-        final SharedPreferences prefs = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME,
+        final SharedPreferences prefs = context.getSharedPreferences(TwidereConstants.SHARED_PREFERENCES_NAME,
                 Context.MODE_PRIVATE);
         final String persistedDeviceId = prefs.getString(Constants.KEY_DEVICE_SERIAL, null);
         final String uuid;

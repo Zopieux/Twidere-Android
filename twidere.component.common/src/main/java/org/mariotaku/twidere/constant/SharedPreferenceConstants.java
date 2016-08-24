@@ -27,6 +27,36 @@ import static org.mariotaku.twidere.annotation.PreferenceType.BOOLEAN;
 import static org.mariotaku.twidere.annotation.PreferenceType.INT;
 import static org.mariotaku.twidere.annotation.PreferenceType.LONG;
 import static org.mariotaku.twidere.annotation.PreferenceType.STRING;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.DEFAULT_DATABASE_ITEM_LIMIT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.DEFAULT_LOAD_ITEM_LIMIT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.DEFAULT_THEME;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.DEFAULT_THEME_BACKGROUND;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.DEFAULT_THEME_BACKGROUND_ALPHA;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.DEFAULT_THEME_FONT_FAMILY;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.FORMAT_PATTERN_LINK;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.FORMAT_PATTERN_NAME;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.FORMAT_PATTERN_TEXT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.FORMAT_PATTERN_TEXT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.FORMAT_PATTERN_TEXT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.FORMAT_PATTERN_TITLE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_COMPOSE_NOW_ACTION_COMPOSE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_CODE_HIGHLIGHT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_CODE_UNDERLINE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_NONE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_MEDIA_PREVIEW_STYLE_CROP;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NONE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NONE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NOTIFICATION_FLAG_LIGHT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NOTIFICATION_FLAG_LIGHT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NOTIFICATION_FLAG_NONE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NOTIFICATION_FLAG_RINGTONE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NOTIFICATION_FLAG_VIBRATION;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_NOTIFICATION_FLAG_VIBRATION;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_TAB_DISPLAY_OPTION_CODE_ICON;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_TAB_DISPLAY_OPTION_CODE_LABEL;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_BACKGROUND_DEFAULT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_FONT_FAMILY_REGULAR;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_NAME_LIGHT;
 
 public interface SharedPreferenceConstants {
 
@@ -263,7 +293,7 @@ public interface SharedPreferenceConstants {
     String KEY_MEDIA_PREVIEW_STYLE = "media_preview_style";
     @Preference(type = BOOLEAN, hasDefault = true, defaultBoolean = false)
     String KEY_MEDIA_PREVIEW = "media_preview";
-    @Preference(type = STRING, hasDefault = true)
+    @Preference(type = STRING, hasDefault = true, defaultString = VALUE_PROFILE_IMAGE_STYLE_ROUND)
     String KEY_PROFILE_IMAGE_STYLE = "profile_image_style";
 
     @Preference(type = BOOLEAN, hasDefault = true, defaultBoolean = false)

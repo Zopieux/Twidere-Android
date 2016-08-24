@@ -25,7 +25,6 @@ import android.view.ViewGroup
 import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.iface.IBaseAdapter
 import org.mariotaku.twidere.model.ParcelableUserList
-import org.mariotaku.twidere.util.Utils.configBaseAdapter
 import org.mariotaku.twidere.view.holder.TwoLineWithIconViewHolder
 
 class SimpleParcelableUserListsAdapter(
@@ -33,7 +32,7 @@ class SimpleParcelableUserListsAdapter(
 ) : BaseArrayAdapter<ParcelableUserList>(context, R.layout.list_item_two_line), IBaseAdapter {
 
     init {
-        configBaseAdapter(context, this)
+        config(context)
     }
 
     fun appendData(data: List<ParcelableUserList>) {

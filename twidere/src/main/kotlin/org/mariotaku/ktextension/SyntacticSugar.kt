@@ -8,3 +8,7 @@ inline fun <T> configure(receiver: T, block: T.() -> Unit): T {
     receiver.block()
     return receiver
 }
+
+inline fun <F, T> F.convert(convert: (F) -> T): T {
+    return convert(this)
+}

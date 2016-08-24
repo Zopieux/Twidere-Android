@@ -395,7 +395,7 @@ class UserProfileEditorFragment : BaseSupportFragment(), OnSizeChangedListener, 
                 val account = result.extras.getParcelable<ParcelableAccount>(EXTRA_ACCOUNT)
                 if (account != null) {
                     val task = UpdateAccountInfoTask(activity)
-                    task.params = Pair(account, result.data)
+                    task.params = Pair(account, result.data!!)
                     TaskStarter.execute(task)
                 }
             }
@@ -464,9 +464,14 @@ class UserProfileEditorFragment : BaseSupportFragment(), OnSizeChangedListener, 
 
     }
 
-    private inner class UpdateProfileBackgroundImageTaskInternal(context: Context, accountKey: UserKey,
-                                                                 imageUri: Uri, tile: Boolean,
-                                                                 deleteImage: Boolean) : UpdateProfileBackgroundImageTask<UserProfileEditorFragment>(context, accountKey, imageUri, tile, deleteImage) {
+    private inner class UpdateProfileBackgroundImageTaskInternal(
+            context: Context,
+            accountKey: UserKey,
+            imageUri: Uri,
+            tile: Boolean,
+            deleteImage: Boolean
+    ) : UpdateProfileBackgroundImageTask<UserProfileEditorFragment>(context, accountKey, imageUri,
+            tile, deleteImage) {
 
         override fun afterExecute(callback: UserProfileEditorFragment?, result: SingleResponse<ParcelableUser>?) {
             super.afterExecute(callback, result)

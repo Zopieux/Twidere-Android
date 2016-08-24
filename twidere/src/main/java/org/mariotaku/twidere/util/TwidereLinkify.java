@@ -31,7 +31,6 @@ import com.twitter.Extractor;
 import com.twitter.Extractor.Entity;
 import com.twitter.Regex;
 
-import org.mariotaku.twidere.Constants;
 import org.mariotaku.twidere.model.UserKey;
 import org.mariotaku.twidere.text.TwidereURLSpan;
 
@@ -41,6 +40,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.mariotaku.twidere.TwidereConstants.USER_TYPE_FANFOU_COM;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_CODE_BOTH;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_CODE_HIGHLIGHT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_CODE_NONE;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_LINK_HIGHLIGHT_OPTION_CODE_UNDERLINE;
 import static org.mariotaku.twidere.util.RegexUtils.matcherEnd;
 import static org.mariotaku.twidere.util.RegexUtils.matcherGroup;
 import static org.mariotaku.twidere.util.RegexUtils.matcherStart;
@@ -59,7 +63,7 @@ import static org.mariotaku.twidere.util.RegexUtils.matcherStart;
  * created.
  */
 
-public final class TwidereLinkify implements Constants {
+public final class TwidereLinkify {
 
     public static final int LINK_TYPE_MENTION = 1;
     public static final int LINK_TYPE_HASHTAG = 2;

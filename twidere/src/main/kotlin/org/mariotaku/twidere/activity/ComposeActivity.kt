@@ -73,6 +73,7 @@ import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.ArrayRecyclerAdapter
 import org.mariotaku.twidere.adapter.BaseRecyclerViewAdapter
 import org.mariotaku.twidere.constant.KeyboardShortcutConstants
+import org.mariotaku.twidere.constant.nameFirstKey
 import org.mariotaku.twidere.fragment.BaseDialogFragment
 import org.mariotaku.twidere.fragment.ProgressDialogFragment
 import org.mariotaku.twidere.model.*
@@ -426,7 +427,7 @@ class ComposeActivity : BaseActivity(), OnMenuItemClickListener, OnClickListener
         displayNewDraftNotification(text, draftUri)
     }
 
-    fun setSelectedAccounts(vararg accounts: ParcelableAccount) {
+    fun setSelectedAccounts(accounts: Array<out ParcelableAccount>) {
         if (accounts.size == 1) {
             accountsCount.setText(null)
             val account = accounts[0]
@@ -580,7 +581,7 @@ class ComposeActivity : BaseActivity(), OnMenuItemClickListener, OnClickListener
 
         val menu = menuBar.menu
         supportMenuInflater.inflate(R.menu.menu_compose, menu)
-        ThemeUtils.wrapMenuIcon(menuBar)
+        ThemeUtils.wrapMenuIconDefaultColor(menuBar)
 
         updateStatus.setOnClickListener(this)
         updateStatus.setOnLongClickListener(this)
@@ -802,8 +803,8 @@ class ComposeActivity : BaseActivity(), OnMenuItemClickListener, OnClickListener
                         ParcelableMedia.Type.IMAGE), false))
             }
         }
-        val extraSubject = intent.getCharSequenceExtra(Intent.EXTRA_SUBJECT)
-        val extraText = intent.getCharSequenceExtra(Intent.EXTRA_TEXT)
+        val extraSubject = intent.getCharSequenceExtra(Intent.EXTRA_SUBJECT)?.toString()
+        val extraText = intent.getCharSequenceExtra(Intent.EXTRA_TEXT)?.toString()
         editText.setText(Utils.getShareStatus(this, extraSubject, extraText))
         val selectionEnd = editText.length()
         editText.setSelection(selectionEnd)
@@ -1071,7 +1072,7 @@ class ComposeActivity : BaseActivity(), OnMenuItemClickListener, OnClickListener
 
     private fun notifyAccountSelectionChanged() {
         val accounts = accountsAdapter!!.selectedAccounts
-        setSelectedAccounts(*accounts)
+        setSelectedAccounts(accounts)
         if (ArrayUtils.isEmpty(accounts)) {
             editText.setAccountKey(Utils.getDefaultAccountKey(this))
         } else {
@@ -1391,7 +1392,7 @@ class ComposeActivity : BaseActivity(), OnMenuItemClickListener, OnClickListener
             setHasStableIds(true)
             mInflater = activity.layoutInflater
             selection = HashMap<UserKey, Boolean>()
-            isNameFirst = preferences.getBoolean(KEY_NAME_FIRST)
+            isNameFirst = preferences[nameFirstKey]
         }
 
         val imageLoader: MediaLoaderWrapper

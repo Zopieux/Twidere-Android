@@ -3,6 +3,7 @@ package org.mariotaku.twidere.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.mariotaku.twidere.BuildConfig;
@@ -125,7 +126,8 @@ public class SharedPreferencesWrapper implements SharedPreferences {
     }
 
     @Override
-    public String getString(final String key, final String defValue) {
+    @Nullable
+    public String getString(final String key, @Nullable final String defValue) {
         try {
             return mPreferences.getString(key, defValue);
         } catch (final ClassCastException e) {
@@ -136,7 +138,8 @@ public class SharedPreferencesWrapper implements SharedPreferences {
     }
 
     @Override
-    public Set<String> getStringSet(final String key, final Set<String> defValue) {
+    @Nullable
+    public Set<String> getStringSet(final String key, @Nullable final Set<String> defValue) {
         try {
             return mPreferences.getStringSet(key, defValue);
         } catch (final ClassCastException e) {

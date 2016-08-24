@@ -130,7 +130,8 @@ class SupportTabsAdapter @JvmOverloads constructor(
 
     override fun onPageSelected(position: Int) {
         if (indicator == null || position < 0 || position >= count) return
-        announceForAccessibilityCompat(context, indicator as View?, getPageTitle(position), javaClass)
+        val pageTitle = getPageTitle(position) ?: return
+        announceForAccessibilityCompat(context, indicator as View, pageTitle, javaClass)
     }
 
     override fun onTabLongClick(position: Int): Boolean {

@@ -24,13 +24,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import org.mariotaku.twidere.Constants
 import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter.Companion.ITEM_VIEW_TYPE_LOAD_INDICATOR
 import org.mariotaku.twidere.adapter.iface.IUserListsAdapter
-import org.mariotaku.twidere.constant.SharedPreferenceConstants
+import org.mariotaku.twidere.constant.*
 import org.mariotaku.twidere.model.ParcelableUserList
 import org.mariotaku.twidere.util.Utils
 import org.mariotaku.twidere.view.holder.LoadIndicatorViewHolder
@@ -52,11 +51,11 @@ class ParcelableUserListsAdapter(context: Context) : LoadMoreSupportAdapter<Recy
 
     init {
         inflater = LayoutInflater.from(context)
-        textSize = preferences.getInt(SharedPreferenceConstants.KEY_TEXT_SIZE, context.resources.getInteger(R.integer.default_text_size)).toFloat()
-        profileImageStyle = Utils.getProfileImageStyle(preferences.getString(SharedPreferenceConstants.KEY_PROFILE_IMAGE_STYLE, null))
-        profileImageEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_PROFILE_IMAGE, true)
-        nameFirst = preferences.getBoolean(SharedPreferenceConstants.KEY_NAME_FIRST, true)
-        isShowAbsoluteTime = preferences.getBoolean(SharedPreferenceConstants.KEY_SHOW_ABSOLUTE_TIME, false)
+        textSize = preferences[textSizeKey].toFloat()
+        profileImageStyle = Utils.getProfileImageStyle(preferences[profileImageStyleKey])
+        profileImageEnabled = preferences[displayProfileImageKey]
+        nameFirst = preferences[nameFirstKey]
+        isShowAbsoluteTime = preferences[showAbsoluteTimeKey]
     }
 
     fun getData(): List<ParcelableUserList>? {

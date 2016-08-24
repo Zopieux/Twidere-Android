@@ -34,6 +34,7 @@ import java.util.Locale;
 import javax.inject.Singleton;
 
 import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_EMOJI_SUPPORT;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_EMOJI_SUPPORT;
 
 /**
  * Created by mariotaku on 15/12/20.

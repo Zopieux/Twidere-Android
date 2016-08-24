@@ -32,6 +32,8 @@ import org.mariotaku.twidere.R;
 import org.mariotaku.twidere.util.KeyboardShortcutsHandler;
 import org.mariotaku.twidere.util.KeyboardShortcutsHandler.KeyboardShortcutSpec;
 
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_THEME_BACKGROUND_DEFAULT;
+
 /**
  * Created by mariotaku on 15/4/20.
  */

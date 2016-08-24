@@ -25,6 +25,15 @@ import org.mariotaku.twidere.constant.CompatibilityConstants;
 import org.mariotaku.twidere.constant.IntentConstants;
 import org.mariotaku.twidere.constant.SharedPreferenceConstants;
 
+import static org.mariotaku.twidere.TwidereConstants.PROTOCOL_HTTPS;
+import static org.mariotaku.twidere.TwidereConstants.PROTOCOL_TWIDERE;
+import static org.mariotaku.twidere.TwidereConstants.SCHEME_CONTENT;
+import static org.mariotaku.twidere.TwidereConstants.SCHEME_HTTP;
+import static org.mariotaku.twidere.TwidereConstants.SCHEME_HTTPS;
+import static org.mariotaku.twidere.TwidereConstants.SCHEME_TWIDERE;
+import static org.mariotaku.twidere.TwidereConstants.SEPARATOR_PERMISSION;
+import static org.mariotaku.twidere.TwidereConstants.TWIDERE_APP_NAME;
+
 /**
  * Public constants for both Twidere app and its extensions
  *

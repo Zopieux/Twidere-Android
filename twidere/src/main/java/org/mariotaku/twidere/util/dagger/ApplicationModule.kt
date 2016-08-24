@@ -36,11 +36,12 @@ import dagger.Module
 import dagger.Provides
 import edu.tsinghua.hotmobi.HotMobiLogger
 import okhttp3.ConnectionPool
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.mediaviewer.library.FileCache
 import org.mariotaku.mediaviewer.library.MediaDownloader
 import org.mariotaku.restfu.http.RestHttpClient
 import org.mariotaku.twidere.BuildConfig
-import org.mariotaku.twidere.Constants
+import org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME
 import org.mariotaku.twidere.constant.SharedPreferenceConstants
 import org.mariotaku.twidere.util.*
 import org.mariotaku.twidere.util.imageloader.ReadOnlyDiskLRUNameCache
@@ -85,8 +86,13 @@ class ApplicationModule(private val application: Application) {
     @Provides
     @Singleton
     fun sharedPreferences(): SharedPreferencesWrapper {
-        return SharedPreferencesWrapper.getInstance(application, Constants.SHARED_PREFERENCES_NAME,
+        return SharedPreferencesWrapper.getInstance(application, SHARED_PREFERENCES_NAME,
                 Context.MODE_PRIVATE, SharedPreferenceConstants::class.java)
+    }
+    @Provides
+    @Singleton
+    fun kPreferences(preferences: SharedPreferencesWrapper): KPreferences {
+        return KPreferences(preferences)
     }
 
     @Provides

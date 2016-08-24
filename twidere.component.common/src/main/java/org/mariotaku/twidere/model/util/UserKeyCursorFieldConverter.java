@@ -14,12 +14,17 @@ import java.lang.reflect.ParameterizedType;
 public class UserKeyCursorFieldConverter implements CursorFieldConverter<UserKey> {
     @Override
     public UserKey parseField(Cursor cursor, int columnIndex, ParameterizedType fieldType) {
-        return UserKey.valueOf(cursor.getString(columnIndex));
+        final String string = cursor.getString(columnIndex);
+        if (string == null) return null;
+        return UserKey.valueOf(string);
     }
 
     @Override
     public void writeField(ContentValues values, UserKey object, String columnName, ParameterizedType fieldType) {
-        if (object == null) return;
+        if (object == null) {
+            values.putNull(columnName);
+            return;
+        }
         values.put(columnName, object.toString());
     }
 

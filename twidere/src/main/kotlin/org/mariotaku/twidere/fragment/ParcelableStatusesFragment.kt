@@ -145,14 +145,17 @@ abstract class ParcelableStatusesFragment : AbsStatusesFragment() {
     override fun onLoadMoreContents(position: Long) {
         // Only supports load from end, skip START flag
         if (position and ILoadMoreSupportAdapter.START !== 0L || refreshing) return
-        super.onLoadMoreContents(position.toLong())
-        if (position == 0L) return
+
         val adapter = adapter
         // Load the last item
         val idx = adapter!!.statusStartIndex + adapter.rawStatusCount - 1
         if (idx < 0) return
-        val status = adapter.getStatus(idx)
-        val accountKeys = arrayOf(status!!.account_key)
+        val status = adapter.getStatus(idx) ?: return
+        if (position == 0L) return
+
+        super.onLoadMoreContents(position.toLong())
+
+        val accountKeys = arrayOf(status.account_key)
         val maxIds = arrayOf(status.id)
         page += pageDelta
         val param = BaseRefreshTaskParam(accountKeys, maxIds, null)

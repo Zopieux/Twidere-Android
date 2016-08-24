@@ -151,7 +151,7 @@ public class MediaLoaderWrapper {
         String bannerUrl = account.profile_banner_url;
         if (bannerUrl == null && ParcelableAccount.Type.FANFOU.equals(account.account_type)) {
             if (account.account_user != null) {
-                bannerUrl = ParcelableUserUtils.getProfileBannerUrl(account.account_user);
+                bannerUrl = ParcelableUserUtils.INSTANCE.getProfileBannerUrl(account.account_user);
             }
         }
         return bannerUrl;

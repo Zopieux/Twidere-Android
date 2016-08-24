@@ -41,6 +41,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_THUMBOR_ADDRESS;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_THUMBOR_ENABLED;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_THUMBOR_SECURITY_KEY;
+
 /**
  * Created by mariotaku on 16/1/28.
  */

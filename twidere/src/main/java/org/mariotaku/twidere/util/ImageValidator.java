@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
 
-import static org.mariotaku.twidere.util.Utils.closeSilently;
 
 public class ImageValidator {
 
@@ -104,7 +103,7 @@ public class ImageValidator {
         } catch (final IOException e) {
             return INVALID;
         } finally {
-            closeSilently(raf);
+            Utils.INSTANCE.closeSilently(raf);
         }
         return VALID_FOR_ALL;
     }

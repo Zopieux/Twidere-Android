@@ -29,7 +29,7 @@ import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.iface.IGroupsAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter.Companion.ITEM_VIEW_TYPE_LOAD_INDICATOR
-import org.mariotaku.twidere.constant.SharedPreferenceConstants
+import org.mariotaku.twidere.constant.*
 import org.mariotaku.twidere.model.ParcelableGroup
 import org.mariotaku.twidere.util.Utils
 import org.mariotaku.twidere.view.holder.GroupViewHolder
@@ -53,11 +53,11 @@ class ParcelableGroupsAdapter(context: Context) : LoadMoreSupportAdapter<Recycle
     init {
         mEventListener = EventListener(this)
         inflater = LayoutInflater.from(context)
-        textSize = preferences.getInt(SharedPreferenceConstants.KEY_TEXT_SIZE, context.resources.getInteger(R.integer.default_text_size)).toFloat()
-        profileImageStyle = Utils.getProfileImageStyle(preferences.getString(SharedPreferenceConstants.KEY_PROFILE_IMAGE_STYLE, null))
-        profileImageEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_PROFILE_IMAGE, true)
-        nameFirst = preferences.getBoolean(SharedPreferenceConstants.KEY_NAME_FIRST, true)
-        isShowAbsoluteTime = preferences.getBoolean(SharedPreferenceConstants.KEY_SHOW_ABSOLUTE_TIME, false)
+        textSize = preferences[textSizeKey].toFloat()
+        profileImageStyle = Utils.getProfileImageStyle(preferences[profileImageStyleKey])
+        profileImageEnabled = preferences[displayProfileImageKey]
+        nameFirst = preferences[nameFirstKey]
+        isShowAbsoluteTime = preferences[showAbsoluteTimeKey]
     }
 
     fun getData(): List<ParcelableGroup>? {

@@ -28,6 +28,7 @@ public class TwidereMathUtils {
     public static final int RANGE_INCLUSIVE_INCLUSIVE = 0b11;
     static final int MASK_LEFT_BOUND = 0b10;
     static final int MASK_RIGHT_BOUND = 0b01;
+    private static int[] array;
 
     private TwidereMathUtils() {
     }
@@ -63,32 +64,6 @@ public class TwidereMathUtils {
     public static int prevPowerOf2(final int n) {
         if (n <= 0) throw new IllegalArgumentException();
         return Integer.highestOneBit(n);
-    }
-
-    public static double sum(double... doubles) {
-        double sum = 0;
-        for (double d : doubles) {
-            sum += d;
-        }
-        return sum;
-    }
-
-    public static int sum(@NonNull int[] array) {
-        return sum(array, 0, array.length - 1);
-    }
-
-    public static int sum(@NonNull int[] array, int start, int end) {
-        int sum = 0;
-        for (int i = start; i <= end; i++) {
-            int num = array[i];
-            sum += num;
-        }
-        return sum;
-    }
-
-    public static boolean inRange(int num, int from, int to, int flag) {
-        return ((flag & MASK_LEFT_BOUND) == 0 ? num > from : num >= from)
-                && ((flag & MASK_RIGHT_BOUND) == 0 ? num < to : num <= to);
     }
 
     public static boolean inRange(float num, float from, float to, int flag) {

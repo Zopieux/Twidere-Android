@@ -26,7 +26,8 @@ import android.net.Uri;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import static org.mariotaku.twidere.util.Utils.showErrorMessage;
+import org.mariotaku.twidere.util.Utils;
+
 
 public class DefaultWebViewClient extends WebViewClient {
 
@@ -41,7 +42,7 @@ public class DefaultWebViewClient extends WebViewClient {
         try {
             mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (final ActivityNotFoundException e) {
-            showErrorMessage(mActivity, null, e, false);
+            Utils.INSTANCE.showErrorMessage(mActivity, null, e, false);
         }
         return true;
     }

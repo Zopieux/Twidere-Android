@@ -33,6 +33,10 @@ import org.mariotaku.twidere.view.iface.PagerIndicator;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_TAB_DISPLAY_OPTION_CODE_BOTH;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_TAB_DISPLAY_OPTION_CODE_ICON;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.VALUE_TAB_DISPLAY_OPTION_CODE_LABEL;
+
 /**
  * Created by mariotaku on 14/10/21.
  */

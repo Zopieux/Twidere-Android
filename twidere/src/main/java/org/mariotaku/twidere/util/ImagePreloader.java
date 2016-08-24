@@ -31,6 +31,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 
 import static org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME;
+import static org.mariotaku.twidere.TwidereConstants.SHARED_PREFERENCES_NAME;
+import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_PRELOAD_WIFI_ONLY;
 import static org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_PRELOAD_WIFI_ONLY;
 
 /**

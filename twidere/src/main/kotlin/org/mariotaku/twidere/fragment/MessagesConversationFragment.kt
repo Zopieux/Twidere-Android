@@ -354,7 +354,7 @@ class MessagesConversationFragment : BaseSupportFragment(), LoaderCallbacks<Curs
         if (!isValid) {
             return CursorLoader(activity, TwidereDataStore.CONTENT_URI_NULL, cols, null, null, null)
         }
-        val uri = buildDirectMessageConversationUri(accountId, recipientId, null)
+        val uri = buildDirectMessageConversationUri(accountId!!, recipientId, null)
         return CursorLoader(activity, uri, cols, null, null, Conversation.DEFAULT_SORT_ORDER)
     }
 
@@ -399,7 +399,7 @@ class MessagesConversationFragment : BaseSupportFragment(), LoaderCallbacks<Curs
         if (menuInfo == null) return
         val inflater = MenuInflater(context)
         val contextMenuInfo = menuInfo as ExtendedRecyclerView.ContextMenuInfo?
-        val message = adapter!!.getDirectMessage(contextMenuInfo!!.position)
+        val message = adapter!!.getDirectMessage(contextMenuInfo!!.position) ?: return
         menu.setHeaderTitle(message.text_unescaped)
         inflater.inflate(R.menu.action_direct_message, menu)
     }

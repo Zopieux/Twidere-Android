@@ -33,48 +33,48 @@ import org.mariotaku.twidere.model.util.ParcelableAccountUtils;
 
 public class AccountPreferences implements Constants {
 
-    private final Context mContext;
-    private final UserKey mAccountKey;
-    private final SharedPreferences mPreferences;
+    private final Context context;
+    private final UserKey accountKey;
+    private final SharedPreferences preferences;
 
     public AccountPreferences(final Context context, final UserKey accountKey) {
-        mContext = context;
-        mAccountKey = accountKey;
+        this.context = context;
+        this.accountKey = accountKey;
         final String name = ACCOUNT_PREFERENCES_NAME_PREFIX + accountKey;
-        mPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
     public UserKey getAccountKey() {
-        return mAccountKey;
+        return accountKey;
     }
 
     public int getDefaultNotificationLightColor() {
-        final ParcelableAccount a = ParcelableAccountUtils.getAccount(mContext, mAccountKey);
+        final ParcelableAccount a = ParcelableAccountUtils.INSTANCE.getAccount(context, accountKey);
         if (a != null) {
             return a.color;
         } else {
-            return ContextCompat.getColor(mContext, R.color.branding_color);
+            return ContextCompat.getColor(context, R.color.branding_color);
         }
     }
 
     public int getDirectMessagesNotificationType() {
-        return mPreferences.getInt(KEY_NOTIFICATION_TYPE_DIRECT_MESSAGES, DEFAULT_NOTIFICATION_TYPE_DIRECT_MESSAGES);
+        return preferences.getInt(KEY_NOTIFICATION_TYPE_DIRECT_MESSAGES, DEFAULT_NOTIFICATION_TYPE_DIRECT_MESSAGES);
     }
 
     public int getHomeTimelineNotificationType() {
-        return mPreferences.getInt(KEY_NOTIFICATION_TYPE_HOME, DEFAULT_NOTIFICATION_TYPE_HOME);
+        return preferences.getInt(KEY_NOTIFICATION_TYPE_HOME, DEFAULT_NOTIFICATION_TYPE_HOME);
     }
 
     public int getMentionsNotificationType() {
-        return mPreferences.getInt(KEY_NOTIFICATION_TYPE_MENTIONS, DEFAULT_NOTIFICATION_TYPE_MENTIONS);
+        return preferences.getInt(KEY_NOTIFICATION_TYPE_MENTIONS, DEFAULT_NOTIFICATION_TYPE_MENTIONS);
     }
 
     public int getNotificationLightColor() {
-        return mPreferences.getInt(KEY_NOTIFICATION_LIGHT_COLOR, getDefaultNotificationLightColor());
+        return preferences.getInt(KEY_NOTIFICATION_LIGHT_COLOR, getDefaultNotificationLightColor());
     }
 
     public Uri getNotificationRingtone() {
-        final String ringtone = mPreferences.getString(KEY_NOTIFICATION_RINGTONE, null);
+        final String ringtone = preferences.getString(KEY_NOTIFICATION_RINGTONE, null);
         if (TextUtils.isEmpty(ringtone)) {
             return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         } else {
@@ -83,51 +83,51 @@ public class AccountPreferences implements Constants {
     }
 
     public boolean isAutoRefreshDirectMessagesEnabled() {
-        return mPreferences.getBoolean(KEY_AUTO_REFRESH_DIRECT_MESSAGES, DEFAULT_AUTO_REFRESH_DIRECT_MESSAGES);
+        return preferences.getBoolean(KEY_AUTO_REFRESH_DIRECT_MESSAGES, DEFAULT_AUTO_REFRESH_DIRECT_MESSAGES);
     }
 
     public boolean isAutoRefreshEnabled() {
-        return mPreferences.getBoolean(KEY_AUTO_REFRESH, DEFAULT_AUTO_REFRESH);
+        return preferences.getBoolean(KEY_AUTO_REFRESH, DEFAULT_AUTO_REFRESH);
     }
 
     public boolean isAutoRefreshHomeTimelineEnabled() {
-        return mPreferences.getBoolean(KEY_AUTO_REFRESH_HOME_TIMELINE, DEFAULT_AUTO_REFRESH_HOME_TIMELINE);
+        return preferences.getBoolean(KEY_AUTO_REFRESH_HOME_TIMELINE, DEFAULT_AUTO_REFRESH_HOME_TIMELINE);
     }
 
     public boolean isAutoRefreshMentionsEnabled() {
-        return mPreferences.getBoolean(KEY_AUTO_REFRESH_MENTIONS, DEFAULT_AUTO_REFRESH_MENTIONS);
+        return preferences.getBoolean(KEY_AUTO_REFRESH_MENTIONS, DEFAULT_AUTO_REFRESH_MENTIONS);
     }
 
     public boolean isAutoRefreshTrendsEnabled() {
-        return mPreferences.getBoolean(KEY_AUTO_REFRESH_TRENDS, DEFAULT_AUTO_REFRESH_TRENDS);
+        return preferences.getBoolean(KEY_AUTO_REFRESH_TRENDS, DEFAULT_AUTO_REFRESH_TRENDS);
     }
 
     public boolean isStreamingEnabled() {
-        return mPreferences.getBoolean(KEY_ENABLE_STREAMING, false);
+        return preferences.getBoolean(KEY_ENABLE_STREAMING, false);
     }
 
     public boolean isDirectMessagesNotificationEnabled() {
-        return mPreferences.getBoolean(KEY_DIRECT_MESSAGES_NOTIFICATION, DEFAULT_DIRECT_MESSAGES_NOTIFICATION);
+        return preferences.getBoolean(KEY_DIRECT_MESSAGES_NOTIFICATION, DEFAULT_DIRECT_MESSAGES_NOTIFICATION);
     }
 
     public boolean isHomeTimelineNotificationEnabled() {
-        return mPreferences.getBoolean(KEY_HOME_TIMELINE_NOTIFICATION, DEFAULT_HOME_TIMELINE_NOTIFICATION);
+        return preferences.getBoolean(KEY_HOME_TIMELINE_NOTIFICATION, DEFAULT_HOME_TIMELINE_NOTIFICATION);
     }
 
     public boolean isInteractionsNotificationEnabled() {
-        return mPreferences.getBoolean(KEY_MENTIONS_NOTIFICATION, DEFAULT_MENTIONS_NOTIFICATION);
+        return preferences.getBoolean(KEY_MENTIONS_NOTIFICATION, DEFAULT_MENTIONS_NOTIFICATION);
     }
 
     public boolean isNotificationFollowingOnly() {
-        return mPreferences.getBoolean(KEY_NOTIFICATION_FOLLOWING_ONLY, false);
+        return preferences.getBoolean(KEY_NOTIFICATION_FOLLOWING_ONLY, false);
     }
 
     public boolean isNotificationMentionsOnly() {
-        return mPreferences.getBoolean(KEY_NOTIFICATION_MENTIONS_ONLY, false);
+        return preferences.getBoolean(KEY_NOTIFICATION_MENTIONS_ONLY, false);
     }
 
     public boolean isNotificationEnabled() {
-        return mPreferences.getBoolean(KEY_NOTIFICATION, DEFAULT_NOTIFICATION);
+        return preferences.getBoolean(KEY_NOTIFICATION, DEFAULT_NOTIFICATION);
     }
 
     public static AccountPreferences getAccountPreferences(final AccountPreferences[] prefs, final UserKey accountKey) {

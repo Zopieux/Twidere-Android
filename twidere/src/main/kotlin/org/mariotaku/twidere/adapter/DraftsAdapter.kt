@@ -26,8 +26,9 @@ import android.support.v4.widget.SimpleCursorAdapter
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.R
-import org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_MEDIA_PREVIEW_STYLE
+import org.mariotaku.twidere.constant.mediaPreviewStyleKey
 import org.mariotaku.twidere.model.Draft
 import org.mariotaku.twidere.model.DraftCursorIndices
 import org.mariotaku.twidere.model.ParcelableMediaUpdate
@@ -43,7 +44,7 @@ class DraftsAdapter(context: Context) : SimpleCursorAdapter(context, R.layout.li
     @Inject
     lateinit var imageLoader: MediaLoaderWrapper
     @Inject
-    lateinit var preferences: SharedPreferencesWrapper
+    lateinit var preferences: KPreferences
     private val mediaLoadingHandler: MediaLoadingHandler
     private val mediaPreviewStyle: Int
 
@@ -53,7 +54,7 @@ class DraftsAdapter(context: Context) : SimpleCursorAdapter(context, R.layout.li
     init {
         GeneralComponentHelper.build(context).inject(this)
         mediaLoadingHandler = MediaLoadingHandler(R.id.media_preview_progress)
-        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences.getString(KEY_MEDIA_PREVIEW_STYLE, null))
+        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences[mediaPreviewStyleKey])
     }
 
     override fun bindView(view: View, context: Context, cursor: Cursor) {

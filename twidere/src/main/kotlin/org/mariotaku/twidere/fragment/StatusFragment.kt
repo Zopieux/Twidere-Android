@@ -69,7 +69,9 @@ import kotlinx.android.synthetic.main.adapter_item_status_count_label.view.*
 import kotlinx.android.synthetic.main.fragment_status.*
 import kotlinx.android.synthetic.main.header_status_common.view.*
 import kotlinx.android.synthetic.main.layout_content_fragment_common.*
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.ktextension.findPositionByItemId
+import org.mariotaku.ktextension.toLocalizedString
 import org.mariotaku.microblog.library.MicroBlogException
 import org.mariotaku.microblog.library.twitter.model.Paging
 import org.mariotaku.microblog.library.twitter.model.TranslationResult
@@ -86,8 +88,8 @@ import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter.IndicatorPosition
 import org.mariotaku.twidere.adapter.iface.IStatusesAdapter
 import org.mariotaku.twidere.annotation.Referral
+import org.mariotaku.twidere.constant.*
 import org.mariotaku.twidere.constant.KeyboardShortcutConstants.*
-import org.mariotaku.twidere.constant.SharedPreferenceConstants
 import org.mariotaku.twidere.loader.ConversationLoader
 import org.mariotaku.twidere.loader.ParcelableStatusLoader
 import org.mariotaku.twidere.menu.FavoriteItemProvider
@@ -1085,7 +1087,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
                 provider.setUseStar(useStar)
                 provider.init(itemView.menuBar, favoriteItem)
             }
-            ThemeUtils.wrapMenuIcon(itemView.menuBar, MENU_GROUP_STATUS_SHARE)
+            ThemeUtils.wrapMenuIconDefaultColor(itemView.menuBar, MENU_GROUP_STATUS_SHARE)
             itemView.mediaPreviewLoad.setOnClickListener(this)
             itemView.profileContainer.setOnClickListener(this)
             itemView.quotedName.setOnClickListener(this)
@@ -1339,7 +1341,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
                             throw UnsupportedOperationException("Unsupported type " + count.type)
                         }
                     }
-                    itemView.count.text = Utils.getLocalizedNumber(Locale.getDefault(), count.count)
+                    itemView.count.text = count.count.toLocalizedString(Locale.getDefault())
                     itemView.label.text = label
                 }
             }
@@ -1360,7 +1362,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
                 context: Context,
                 manager: MultiSelectManager,
                 private val adapter: StatusAdapter,
-                preferences: SharedPreferencesWrapper
+                preferences: KPreferences
         ) : StatusLinkClickHandler(context, manager, preferences) {
 
             override fun onLinkClick(link: String, orig: String?, accountKey: UserKey?,
@@ -1375,8 +1377,9 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
 
             private fun expandOrOpenMedia(current: ParcelableMedia) {
                 if (adapter.isDetailMediaExpanded) {
-                    IntentUtils.openMedia(adapter.context, adapter.status, current, null,
-                            preferences.getBoolean(SharedPreferenceConstants.KEY_NEW_DOCUMENT_API))
+                    val status = adapter.status ?: return
+                    IntentUtils.openMedia(adapter.context, status, current, null,
+                            preferences[newDocumentApiKey])
                     return
                 }
                 adapter.isDetailMediaExpanded = true
@@ -1388,7 +1391,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
             }
 
             private fun getCurrentMedia(link: String, extraId: Int): ParcelableMedia? {
-                val status = adapter.getStatus(extraId)
+                val status = adapter.getStatus(extraId) ?: return null
                 val media = ParcelableMediaUtils.getAllMedia(status)
                 return StatusLinkClickHandler.findByLink(media, link)
             }
@@ -1420,7 +1423,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
         private val mItemCounts: IntArray
 
         override val nameFirst: Boolean
-        private val mTextSize: Int
+        override val textSize: Float
         private val cardBackgroundColor: Int
         override val profileImageStyle: Int
         override val mediaPreviewStyle: Int
@@ -1469,25 +1472,21 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
             cardBackgroundColor = ThemeUtils.getCardBackgroundColor(context,
                     ThemeUtils.getThemeBackgroundOption(context),
                     ThemeUtils.getUserThemeBackgroundAlpha(context))
-            nameFirst = preferences.getBoolean(SharedPreferenceConstants.KEY_NAME_FIRST, true)
-            mTextSize = preferences.getInt(SharedPreferenceConstants.KEY_TEXT_SIZE, res.getInteger(R.integer.default_text_size))
-            profileImageStyle = Utils.getProfileImageStyle(preferences.getString(SharedPreferenceConstants.KEY_PROFILE_IMAGE_STYLE, null))
-            mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences.getString(SharedPreferenceConstants.KEY_MEDIA_PREVIEW_STYLE, null))
-            linkHighlightingStyle = Utils.getLinkHighlightingStyleInt(preferences.getString(SharedPreferenceConstants.KEY_LINK_HIGHLIGHT_OPTION, null))
-            profileImageEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_PROFILE_IMAGE, true)
+            nameFirst = preferences[nameFirstKey]
+            textSize = preferences[textSizeKey].toFloat()
+            profileImageStyle = Utils.getProfileImageStyle(preferences[profileImageStyleKey])
+            mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences[mediaPreviewStyleKey])
+            linkHighlightingStyle = Utils.getLinkHighlightingStyleInt(preferences[linkHighlightOptionKey])
+            profileImageEnabled = preferences[displayProfileImageKey]
             mediaPreviewEnabled = Utils.isMediaPreviewEnabled(context, preferences)
-            sensitiveContentEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_SENSITIVE_CONTENTS, false)
-            mShowCardActions = !preferences.getBoolean(SharedPreferenceConstants.KEY_HIDE_CARD_ACTIONS, false)
-            useStarsForLikes = preferences.getBoolean(SharedPreferenceConstants.KEY_I_WANT_MY_STARS_BACK)
-            isShowAbsoluteTime = preferences.getBoolean(SharedPreferenceConstants.KEY_SHOW_ABSOLUTE_TIME)
-            val listener = StatusAdapterLinkClickHandler<List<ParcelableStatus>>(context,
-                    preferences)
-            listener.setAdapter(this)
+            sensitiveContentEnabled = preferences[displaySensitiveContentsKey]
+            mShowCardActions = !preferences[hideCardActionsKey]
+            useStarsForLikes = preferences[iWantMyStarsBackKey]
+            isShowAbsoluteTime = preferences[showAbsoluteTimeKey]
+            val listener = StatusAdapterLinkClickHandler<List<ParcelableStatus>>(context, preferences)
+            listener.adapter = this
             twidereLinkify = TwidereLinkify(listener)
         }
-
-        override val textSize: Float
-            get() = mTextSize.toFloat()
 
         override fun getStatus(position: Int): ParcelableStatus? {
             val itemType = getItemType(position)
@@ -1509,8 +1508,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
         }
 
         fun getIndexStart(index: Int): Int {
-            if (index == 0) return 0
-            return TwidereMathUtils.sum(mItemCounts, 0, index - 1)
+            return mItemCounts.slice(0..index).sum()
         }
 
         override fun getStatusId(position: Int): String? {
@@ -1763,7 +1761,7 @@ class StatusFragment : BaseSupportFragment(), LoaderCallbacks<SingleResponse<Par
 
         override fun getItemCount(): Int {
             if (status == null) return 0
-            return TwidereMathUtils.sum(mItemCounts)
+            return mItemCounts.sum()
         }
 
         override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {

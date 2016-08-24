@@ -480,10 +480,10 @@ abstract class AbsStatusesFragment protected constructor() :
     }
 
     override fun onUserProfileClick(holder: IStatusViewHolder, position: Int) {
-        val status = adapter!!.getStatus(position)
-        val intent = IntentUtils.userProfile(status!!.account_key, status.user_key,
+        val status = adapter!!.getStatus(position) ?: return
+        val intent = IntentUtils.userProfile(status.account_key, status.user_key,
                 status.user_screen_name, Referral.TIMELINE_STATUS,
-                status.extras.user_statusnet_profile_url)
+                status.extras.user_statusnet_profile_url) ?: return
         IntentUtils.applyNewDocument(intent, preferences.getBoolean(SharedPreferenceConstants.KEY_NEW_DOCUMENT_API))
         startActivity(intent)
     }

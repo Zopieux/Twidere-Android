@@ -14,11 +14,15 @@ import org.mariotaku.twidere.model.UserKey;
 
 import java.util.Arrays;
 
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_ACCOUNT_KEYS;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_ACCOUNT_KEYS;
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_ACCOUNT_KEYS;
+
 /**
  * Created by mariotaku on 16/3/6.
  */
 @JsonObject
-public class TabArguments implements TwidereConstants {
+public class TabArguments {
     @JsonField(name = "account_id")
     String accountId;
 

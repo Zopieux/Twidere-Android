@@ -26,7 +26,8 @@ public class UserKeysConverter implements TypeConverter<UserKey[]> {
         }
         List<UserKey> list = new ArrayList<>();
         while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
-            list.add(UserKey.valueOf(jsonParser.getValueAsString()));
+            final String string = jsonParser.getValueAsString();
+            list.add(UserKey.valueOf(string));
         }
         return list.toArray(new UserKey[list.size()]);
     }

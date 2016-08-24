@@ -72,6 +72,7 @@ import org.apache.commons.lang3.ObjectUtils
 import org.mariotaku.abstask.library.AbstractTask
 import org.mariotaku.abstask.library.TaskStarter
 import org.mariotaku.ktextension.empty
+import org.mariotaku.ktextension.toLocalizedString
 import org.mariotaku.microblog.library.MicroBlogException
 import org.mariotaku.microblog.library.twitter.model.FriendshipUpdate
 import org.mariotaku.microblog.library.twitter.model.Relationship
@@ -131,7 +132,6 @@ class UserFragment : BaseSupportFragment(), OnClickListener, OnLinkClickListener
         private set
     private var account: ParcelableAccount? = null
     private var relationship: UserRelationship? = null
-    private var locale: Locale? = null
     private var mGetUserInfoLoaderInitialized: Boolean = false
     private var mGetFriendShipLoaderInitialized: Boolean = false
     private var mBannerWidth: Int = 0
@@ -228,7 +228,7 @@ class UserFragment : BaseSupportFragment(), OnClickListener, OnLinkClickListener
                 updateOptionsMenuVisibility()
             } else {
                 if (data.hasException()) {
-                    errorText.text = Utils.getErrorMessage(activity, data.exception)
+                    errorText.text = Utils.getErrorMessage(activity, data.exception!!)
                     errorText.visibility = View.VISIBLE
                 }
                 cardContent.visibility = View.GONE
@@ -406,6 +406,7 @@ class UserFragment : BaseSupportFragment(), OnClickListener, OnLinkClickListener
     @UiThread
     fun displayUser(user: ParcelableUser?, account: ParcelableAccount?) {
         val activity = activity ?: return
+        val locale = resources.configuration.locale
         this.user = user
         this.account = account
         if (user == null || user.key == null) {
@@ -463,11 +464,11 @@ class UserFragment : BaseSupportFragment(), OnClickListener, OnLinkClickListener
         val dailyTweets = Math.round(user.statuses_count / Math.max(1f, daysSinceCreation))
         createdAtContainer.createdAt.text = resources.getQuantityString(R.plurals.created_at_with_N_tweets_per_day, dailyTweets,
                 createdAt, dailyTweets)
-        listedContainer.listedCount.text = Utils.getLocalizedNumber(locale, user.listed_count)
-        val groupsCount = if (user.extras != null) user.extras.groups_count else -1
-        groupsContainer.groupsCount.text = Utils.getLocalizedNumber(locale, groupsCount)
-        followersContainer.followersCount!!.text = Utils.getLocalizedNumber(locale, user.followers_count)
-        friendsContainer.friendsCount!!.text = Utils.getLocalizedNumber(locale, user.friends_count)
+        listedContainer.listedCount.text = user.listed_count.toLocalizedString(locale)
+        val groupsCount = user.extras?.groups_count ?: -1
+        groupsContainer.groupsCount.text = groupsCount.toLocalizedString(locale)
+        followersContainer.followersCount!!.text = user.followers_count.toLocalizedString(locale)
+        friendsContainer.friendsCount!!.text = user.friends_count.toLocalizedString(locale)
 
         listedContainer.visibility = if (user.listed_count < 0) View.GONE else View.VISIBLE
         groupsContainer.visibility = if (groupsCount < 0) View.GONE else View.VISIBLE
@@ -619,7 +620,7 @@ class UserFragment : BaseSupportFragment(), OnClickListener, OnLinkClickListener
         userColorNameManager.registerColorChangedListener(this)
         userColorNameManager.registerNicknameChangedListener(this)
         nameFirst = preferences.getBoolean(KEY_NAME_FIRST)
-        locale = resources.configuration.locale
+
         cardBackgroundColor = ThemeUtils.getCardBackgroundColor(activity,
                 ThemeUtils.getThemeBackgroundOption(activity),
                 ThemeUtils.getUserThemeBackgroundAlpha(activity))

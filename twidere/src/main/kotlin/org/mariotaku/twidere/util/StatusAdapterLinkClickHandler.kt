@@ -21,36 +21,37 @@ package org.mariotaku.twidere.util
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.Constants
 import org.mariotaku.twidere.adapter.iface.IStatusesAdapter
-import org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_NEW_DOCUMENT_API
+import org.mariotaku.twidere.constant.newDocumentApiKey
 import org.mariotaku.twidere.model.UserKey
 import org.mariotaku.twidere.model.util.ParcelableMediaUtils
 
 /**
  * Created by mariotaku on 15/4/6.
  */
-class StatusAdapterLinkClickHandler<D>(context: Context, preferences: SharedPreferencesWrapper) : OnLinkClickHandler(context, null, preferences), Constants {
+class StatusAdapterLinkClickHandler<D>(context: Context, preferences: KPreferences) : OnLinkClickHandler(context, null, preferences), Constants {
 
-    private var adapter: IStatusesAdapter<D>? = null
+    var adapter: IStatusesAdapter<D>? = null
 
     override fun openMedia(accountKey: UserKey, extraId: Long, sensitive: Boolean,
                            link: String, start: Int, end: Int) {
         if (extraId == RecyclerView.NO_POSITION.toLong()) return
-        val status = adapter!!.getStatus(extraId.toInt())
+        val status = adapter!!.getStatus(extraId.toInt()) ?: return
         val media = ParcelableMediaUtils.getAllMedia(status)
         val current = StatusLinkClickHandler.findByLink(media, link)
         if (current != null && current.open_browser) {
             openLink(link)
         } else {
-            val newDocument = preferences.getBoolean(KEY_NEW_DOCUMENT_API)
+            val newDocument = preferences[newDocumentApiKey]
             IntentUtils.openMedia(context, status, current, null, newDocument)
         }
     }
 
     override fun isMedia(link: String, extraId: Long): Boolean {
         if (extraId != RecyclerView.NO_POSITION.toLong()) {
-            val status = adapter!!.getStatus(extraId.toInt())
+            val status = adapter!!.getStatus(extraId.toInt()) ?: return false
             val media = ParcelableMediaUtils.getAllMedia(status)
             val current = StatusLinkClickHandler.findByLink(media, link)
             return current != null && !current.open_browser
@@ -58,7 +59,4 @@ class StatusAdapterLinkClickHandler<D>(context: Context, preferences: SharedPref
         return super.isMedia(link, extraId)
     }
 
-    fun setAdapter(adapter: IStatusesAdapter<D>) {
-        this.adapter = adapter
-    }
 }

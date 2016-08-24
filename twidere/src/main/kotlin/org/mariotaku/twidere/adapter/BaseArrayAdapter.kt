@@ -22,6 +22,7 @@ package org.mariotaku.twidere.adapter
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.twidere.Constants
 import org.mariotaku.twidere.TwidereConstants.*
 import org.mariotaku.twidere.adapter.iface.IBaseAdapter
@@ -39,7 +40,7 @@ open class BaseArrayAdapter<T> @JvmOverloads constructor(context: Context, layou
     @Inject
     lateinit var multiSelectManager: MultiSelectManager
     @Inject
-    lateinit var preferences: SharedPreferencesWrapper
+    lateinit var preferences: KPreferences
 
     private val nicknamePrefs: SharedPreferences
     private val colorPrefs: SharedPreferences

@@ -10,8 +10,6 @@ import android.text.TextUtils;
 import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
-import org.mariotaku.microblog.library.MicroBlog;
-import org.mariotaku.microblog.library.MicroBlogException;
 import org.mariotaku.microblog.library.twitter.model.DirectMessage;
 import org.mariotaku.microblog.library.twitter.model.EntitySupport;
 import org.mariotaku.microblog.library.twitter.model.ExtendedEntitySupport;
@@ -19,7 +17,6 @@ import org.mariotaku.microblog.library.twitter.model.MediaEntity;
 import org.mariotaku.microblog.library.twitter.model.Status;
 import org.mariotaku.microblog.library.twitter.model.UrlEntity;
 import org.mariotaku.microblog.library.twitter.model.User;
-import org.mariotaku.restfu.http.MultiValueMap;
 import org.mariotaku.twidere.model.ParcelableStatus;
 import org.mariotaku.twidere.model.SpanItem;
 import org.mariotaku.twidere.model.UserKey;
@@ -27,8 +24,6 @@ import org.mariotaku.twidere.provider.TwidereDataStore.Filters;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -173,9 +168,8 @@ public class InternalTwitterContentUtils {
                 status.retweeted_by_user_key, status.quoted_user_key, filterRTs);
     }
 
-    @Nullable
-    public static String getBestBannerUrl(@Nullable final String baseUrl, final int width) {
-        if (baseUrl == null) return null;
+    @NonNull
+    public static String getBestBannerUrl(@NonNull final String baseUrl, final int width) {
         final String type = getBestBannerType(width);
         final String authority = UriUtils.getAuthority(baseUrl);
         return authority != null && authority.endsWith(".twimg.com") ? baseUrl + "/" + type : baseUrl;

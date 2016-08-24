@@ -32,7 +32,7 @@ import org.mariotaku.twidere.R
 import org.mariotaku.twidere.adapter.iface.IContentCardAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter
 import org.mariotaku.twidere.annotation.CustomTabType
-import org.mariotaku.twidere.constant.SharedPreferenceConstants
+import org.mariotaku.twidere.constant.*
 import org.mariotaku.twidere.model.StringLongPair
 import org.mariotaku.twidere.model.UserKey
 import org.mariotaku.twidere.provider.TwidereDataStore.DirectMessages.ConversationEntries
@@ -46,29 +46,29 @@ class MessageEntriesAdapter(context: Context) : LoadMoreSupportAdapter<ViewHolde
     private val inflater: LayoutInflater
     override val textSize: Float
     override val profileImageStyle: Int
-    private val mMediaPreviewStyle: Int
+    private val mediaPreviewStyle: Int
     override val profileImageEnabled: Boolean
     override val isShowAbsoluteTime: Boolean
 
-    private val mReadStateChangeListener: OnSharedPreferenceChangeListener
-    private var mShowAccountsColor: Boolean = false
-    private var mCursor: Cursor? = null
+    private val readStateChangeListener: OnSharedPreferenceChangeListener
+    private var showAccountsColor: Boolean = false
+    private var cursor: Cursor? = null
     var listener: MessageEntriesAdapterListener? = null
     private var mPositionPairs: Array<StringLongPair>? = null
 
     init {
         inflater = LayoutInflater.from(context)
-        profileImageStyle = Utils.getProfileImageStyle(preferences.getString(SharedPreferenceConstants.KEY_PROFILE_IMAGE_STYLE, null))
-        mMediaPreviewStyle = Utils.getMediaPreviewStyle(preferences.getString(SharedPreferenceConstants.KEY_MEDIA_PREVIEW_STYLE, null))
-        profileImageEnabled = preferences.getBoolean(SharedPreferenceConstants.KEY_DISPLAY_PROFILE_IMAGE, true)
-        textSize = preferences.getInt(SharedPreferenceConstants.KEY_TEXT_SIZE, context.resources.getInteger(R.integer.default_text_size)).toFloat()
-        isShowAbsoluteTime = preferences.getBoolean(SharedPreferenceConstants.KEY_SHOW_ABSOLUTE_TIME, false)
-        mReadStateChangeListener = OnSharedPreferenceChangeListener { sharedPreferences, key -> updateReadState() }
+        profileImageStyle = Utils.getProfileImageStyle(preferences[profileImageStyleKey])
+        mediaPreviewStyle = Utils.getMediaPreviewStyle(preferences[mediaPreviewStyleKey])
+        profileImageEnabled = preferences[displayProfileImageKey]
+        textSize = preferences[textSizeKey].toFloat()
+        isShowAbsoluteTime = preferences[showAbsoluteTimeKey]
+        readStateChangeListener = OnSharedPreferenceChangeListener { sharedPreferences, key -> updateReadState() }
     }
 
 
     fun getEntry(position: Int): DirectMessageEntry? {
-        val c = mCursor
+        val c = cursor
         if (c == null || c.isClosed || !c.moveToPosition(position)) return null
         return DirectMessageEntry(c)
     }
@@ -108,7 +108,7 @@ class MessageEntriesAdapter(context: Context) : LoadMoreSupportAdapter<ViewHolde
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder.itemViewType) {
             ITEM_VIEW_TYPE_MESSAGE -> {
-                val c = mCursor
+                val c = cursor
                 c!!.moveToPosition(position)
                 (holder as MessageEntryViewHolder).displayMessage(c, isUnread(c))
             }
@@ -151,11 +151,11 @@ class MessageEntriesAdapter(context: Context) : LoadMoreSupportAdapter<ViewHolde
     }
 
     fun setCursor(cursor: Cursor?) {
-        mCursor = cursor
-        readStateManager.unregisterOnSharedPreferenceChangeListener(mReadStateChangeListener)
+        this.cursor = cursor
+        readStateManager.unregisterOnSharedPreferenceChangeListener(readStateChangeListener)
         if (cursor != null) {
             updateReadState()
-            readStateManager.registerOnSharedPreferenceChangeListener(mReadStateChangeListener)
+            readStateManager.registerOnSharedPreferenceChangeListener(readStateChangeListener)
         }
         notifyDataSetChanged()
     }
@@ -168,7 +168,7 @@ class MessageEntriesAdapter(context: Context) : LoadMoreSupportAdapter<ViewHolde
 
     private val messagesCount: Int
         get() {
-            val c = mCursor
+            val c = cursor
             if (c == null || c.isClosed) return 0
             return c.count
         }
@@ -186,13 +186,13 @@ class MessageEntriesAdapter(context: Context) : LoadMoreSupportAdapter<ViewHolde
     }
 
     fun setShowAccountsColor(showAccountsColor: Boolean) {
-        if (mShowAccountsColor == showAccountsColor) return
-        mShowAccountsColor = showAccountsColor
+        if (this.showAccountsColor == showAccountsColor) return
+        this.showAccountsColor = showAccountsColor
         notifyDataSetChanged()
     }
 
     fun shouldShowAccountsColor(): Boolean {
-        return mShowAccountsColor
+        return showAccountsColor
     }
 
     interface MessageEntriesAdapterListener {

@@ -122,7 +122,7 @@ class DirectMessagesFragment : AbsContentListRecyclerViewFragment<MessageEntries
         val accountIds = accountKeys
         val selection = Expression.`in`(Column(Statuses.ACCOUNT_KEY),
                 ArgsArray(accountIds.size)).sql
-        val selectionArgs = TwidereArrayUtils.toStringArray(accountIds, 0, accountIds.size)
+        val selectionArgs = accountIds.map(Any::toString).toTypedArray()
         return CursorLoader(activity, uri, null, selection, selectionArgs, null)
     }
 

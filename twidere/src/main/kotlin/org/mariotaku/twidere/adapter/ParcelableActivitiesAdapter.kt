@@ -36,6 +36,7 @@ import org.mariotaku.twidere.adapter.iface.IGapSupportedAdapter
 import org.mariotaku.twidere.adapter.iface.ILoadMoreSupportAdapter
 import org.mariotaku.twidere.annotation.Referral
 import org.mariotaku.twidere.constant.SharedPreferenceConstants.KEY_NEW_DOCUMENT_API
+import org.mariotaku.twidere.constant.newDocumentApiKey
 import org.mariotaku.twidere.fragment.CursorActivitiesFragment
 import org.mariotaku.twidere.model.ParcelableActivity
 import org.mariotaku.twidere.model.ParcelableActivityCursorIndices
@@ -405,7 +406,7 @@ class ParcelableActivitiesAdapter(
             val adapter = adapterRef.get() ?: return
             val status = adapter.getActivity(position)?.getActivityStatus() ?: return
             IntentUtils.openUserProfile(adapter.context, status.account_key, status.user_key,
-                    status.user_screen_name, null, adapter.preferences.getBoolean(KEY_NEW_DOCUMENT_API),
+                    status.user_screen_name, null, adapter.preferences[newDocumentApiKey],
                     Referral.TIMELINE_STATUS)
         }
 

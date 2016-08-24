@@ -22,7 +22,7 @@ public class BuildProperties {
         try {
             properties.load(is);
         } finally {
-            Utils.closeSilently(is);
+            Utils.INSTANCE.closeSilently(is);
         }
     }
 

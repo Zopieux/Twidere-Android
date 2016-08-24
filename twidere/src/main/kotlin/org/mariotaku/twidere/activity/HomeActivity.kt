@@ -385,7 +385,7 @@ class HomeActivity : BaseActivity(), OnClickListener, OnPageChangeListener, Supp
                 savedInstanceState != null)
         setTabPosition(initialTabPosition)
 
-        if (Utils.isStreamingEnabled()) {
+        if (Utils.isStreamingEnabled) {
             startService(Intent(this, StreamingService::class.java))
         }
     }

@@ -30,7 +30,7 @@ class VariousItemsAdapter(context: Context) : LoadMoreSupportAdapter<RecyclerVie
         val handler = StatusAdapterLinkClickHandler<Any>(context,
                 preferences)
         dummyAdapter = DummyItemAdapter(context, TwidereLinkify(handler), this)
-        handler.setAdapter(dummyAdapter)
+        handler.adapter = dummyAdapter
         dummyAdapter.updateOptions()
         loadMoreIndicatorPosition = ILoadMoreSupportAdapter.NONE
     }

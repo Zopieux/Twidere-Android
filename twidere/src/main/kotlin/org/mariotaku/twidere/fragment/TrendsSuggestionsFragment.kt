@@ -42,11 +42,10 @@ import org.mariotaku.twidere.util.Utils.getDefaultAccountKey
 
 class TrendsSuggestionsFragment : AbsContentListViewFragment<TrendsAdapter>(), LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
-    private var accountId: UserKey? = null
+    private val accountId: UserKey? by lazy { getDefaultAccountKey(activity) }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        accountId = getDefaultAccountKey(activity)
         listView.onItemClickListener = this
         loaderManager.initLoader(0, null, this)
         showProgress()
@@ -96,8 +95,8 @@ class TrendsSuggestionsFragment : AbsContentListViewFragment<TrendsAdapter>(), L
     }
 
     override fun onRefresh() {
-        if (refreshing) return
-        twitterWrapper.getLocalTrendsAsync(accountId, preferences.getInt(KEY_LOCAL_TRENDS_WOEID, 1))
+        if (refreshing || accountId == null) return
+        twitterWrapper.getLocalTrendsAsync(accountId!!, preferences.getInt(KEY_LOCAL_TRENDS_WOEID, 1))
     }
 
     override var refreshing: Boolean

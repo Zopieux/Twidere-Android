@@ -163,7 +163,7 @@ class CustomTabsFragment : BaseSupportFragment(), LoaderCallbacks<Cursor?>, Mult
         if (itemAdd != null && itemAdd.hasSubMenu()) {
             val subMenu = itemAdd.subMenu
             subMenu.clear()
-            val map = CustomTabUtils.getConfigurationMap()
+            val map = CustomTabUtils.configurationMap
             val tabs = ArrayList(
                     map.entries)
             Collections.sort(tabs, CustomTabConfigurationComparator.SINGLETON)
@@ -257,7 +257,8 @@ class CustomTabsFragment : BaseSupportFragment(), LoaderCallbacks<Cursor?>, Mult
         mode.title = resources.getQuantityString(R.plurals.Nitems_selected, count, count)
     }
 
-    class CustomTabsAdapter(context: Context) : SimpleDragSortCursorAdapter(context, R.layout.list_item_custom_tab, null, arrayOfNulls<String>(0), IntArray(0), 0) {
+    class CustomTabsAdapter(context: Context) : SimpleDragSortCursorAdapter(context,
+            R.layout.list_item_custom_tab, null, emptyArray(), IntArray(0), 0) {
 
         private val mIconColor: Int
         private var indices: CursorIndices? = null
@@ -266,7 +267,7 @@ class CustomTabsFragment : BaseSupportFragment(), LoaderCallbacks<Cursor?>, Mult
             mIconColor = ThemeUtils.getThemeForegroundColor(context)
         }
 
-        override fun bindView(view: View, context: Context?, cursor: Cursor) {
+        override fun bindView(view: View, context: Context, cursor: Cursor) {
             super.bindView(view, context, cursor)
             val holder = view.tag as TwoLineWithIconViewHolder
             val indices = indices!!

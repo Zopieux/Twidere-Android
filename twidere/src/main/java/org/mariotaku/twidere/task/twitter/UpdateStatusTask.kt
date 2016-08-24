@@ -14,6 +14,7 @@ import android.util.Pair
 import org.apache.commons.lang3.ArrayUtils
 import org.apache.commons.lang3.math.NumberUtils
 import org.mariotaku.abstask.library.AbstractTask
+import org.mariotaku.kpreferences.KPreferences
 import org.mariotaku.microblog.library.MicroBlog
 import org.mariotaku.microblog.library.MicroBlogException
 import org.mariotaku.microblog.library.fanfou.model.PhotoStatusUpdate
@@ -29,8 +30,11 @@ import org.mariotaku.restfu.http.mime.SimpleBody
 import org.mariotaku.sqliteqb.library.Expression
 import org.mariotaku.twidere.Constants
 import org.mariotaku.twidere.R
-import org.mariotaku.twidere.TwidereConstants.*
+import org.mariotaku.twidere.TwidereConstants.METADATA_KEY_EXTENSION_VERSION_MEDIA_UPLOADER
+import org.mariotaku.twidere.TwidereConstants.METADATA_KEY_EXTENSION_VERSION_STATUS_SHORTENER
 import org.mariotaku.twidere.app.TwidereApplication
+import org.mariotaku.twidere.constant.mediaUploaderKey
+import org.mariotaku.twidere.constant.statusShortenerKey
 import org.mariotaku.twidere.model.*
 import org.mariotaku.twidere.model.draft.UpdateStatusActionExtra
 import org.mariotaku.twidere.model.util.ParcelableAccountUtils
@@ -57,7 +61,7 @@ class UpdateStatusTask(
     @Inject
     lateinit var twitterWrapper: AsyncTwitterWrapper
     @Inject
-    lateinit var preferences: SharedPreferencesWrapper
+    lateinit var preferences: KPreferences
 
     init {
         GeneralComponentHelper.build(context).inject(this)
@@ -124,7 +128,7 @@ class UpdateStatusTask(
         val cr = context.contentResolver
         if (hasError) {
             val values = ContentValues()
-            values.put(Drafts.ACCOUNT_KEYS, CollectionUtils.toString(failedAccounts, ',', false))
+            values.put(Drafts.ACCOUNT_KEYS, failedAccounts.joinToString(","))
             cr.update(Drafts.CONTENT_URI, values, where, whereArgs)
             // TODO show error message
         } else {
@@ -175,8 +179,8 @@ class UpdateStatusTask(
                 }
             }
             // Override status text
-            pending.overrideTexts[i] = Utils.getMediaUploadStatus(context,
-                    uploadResult.media_uris, pending.overrideTexts[i])
+            pending.overrideTexts[i] = Utils.getMediaUploadStatus(uploadResult.media_uris,
+                    pending.overrideTexts[i])
         }
     }
 
@@ -221,9 +225,9 @@ class UpdateStatusTask(
 
         for (i in 0 until pendingUpdate.length) {
             val account = statusUpdate.accounts[i]
-            val microBlog = MicroBlogAPIFactory.getInstance(context, account.account_key, true)
             var body: Body? = null
             try {
+                val microBlog = MicroBlogAPIFactory.getInstance(context, account.account_key, true) ?: throw MicroBlogException()
                 when (ParcelableAccountUtils.getAccountType(account)) {
                     ParcelableAccount.Type.FANFOU -> {
                         // Call uploadPhoto if media present
@@ -368,7 +372,7 @@ class UpdateStatusTask(
 
     @Throws(UploaderNotFoundException::class, UploadException::class, ShortenerNotFoundException::class, ShortenException::class)
     private fun getStatusShortener(app: TwidereApplication): StatusShortenerInterface? {
-        val shortenerComponent = preferences.getString(KEY_STATUS_SHORTENER, null)
+        val shortenerComponent = preferences[statusShortenerKey]
         if (ServicePickerPreference.isNoneValue(shortenerComponent)) return null
 
         val shortener = StatusShortenerInterface.getInstance(app, shortenerComponent) ?: throw ShortenerNotFoundException()
@@ -392,7 +396,7 @@ class UpdateStatusTask(
 
     @Throws(UploaderNotFoundException::class, UploadException::class)
     private fun getMediaUploader(app: TwidereApplication): MediaUploaderInterface? {
-        val uploaderComponent = preferences.getString(KEY_MEDIA_UPLOADER, null)
+        val uploaderComponent = preferences[mediaUploaderKey]
         if (ServicePickerPreference.isNoneValue(uploaderComponent)) return null
         val uploader = MediaUploaderInterface.getInstance(app, uploaderComponent) ?: throw UploaderNotFoundException(context.getString(R.string.error_message_media_uploader_not_found))
         try {

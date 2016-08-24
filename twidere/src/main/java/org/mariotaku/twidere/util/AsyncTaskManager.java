@@ -71,16 +71,6 @@ public final class AsyncTaskManager {
         return false;
     }
 
-    /**
-     * Cancel all tasks added, then clear all tasks.
-     */
-    public void cancelAll() {
-        for (final ManagedAsyncTask<?, ?, ?> task : getTaskSpecList()) {
-            task.cancel(true);
-        }
-        mTasks.clear();
-    }
-
     @SuppressWarnings("unchecked")
     public final <T> boolean execute(final int hashCode, final T... params) {
         final ManagedAsyncTask<T, ?, ?> task = (ManagedAsyncTask<T, ?, ?>) findTask(hashCode);
@@ -114,11 +104,6 @@ public final class AsyncTaskManager {
                 task.cancel(true);
             }
         }
-    }
-
-    public boolean isExecuting(final int hashCode) {
-        final ManagedAsyncTask<?, ?, ?> task = findTask(hashCode);
-        return task != null && task.getStatus() == AsyncTask.Status.RUNNING;
     }
 
     public void remove(final int hashCode) {

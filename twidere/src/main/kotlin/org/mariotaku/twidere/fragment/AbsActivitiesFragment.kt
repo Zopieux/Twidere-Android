@@ -174,10 +174,8 @@ abstract class AbsActivitiesFragment protected constructor() : AbsContentListRec
     }
 
     private fun openActivity(activity: ParcelableActivity) {
-        val status = activity.getActivityStatus()
-        if (status != null) {
-            IntentUtils.openStatus(context, status, null)
-        }
+        val status = activity.getActivityStatus() ?: return
+        IntentUtils.openStatus(context, status, null)
     }
 
     override fun isKeyboardShortcutHandled(handler: KeyboardShortcutsHandler, keyCode: Int, event: KeyEvent, metaState: Int): Boolean {

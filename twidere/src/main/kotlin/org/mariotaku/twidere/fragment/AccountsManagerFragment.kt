@@ -38,8 +38,6 @@ import org.mariotaku.twidere.provider.TwidereDataStore.*
 import org.mariotaku.twidere.provider.TwidereDataStore.DirectMessages.Inbox
 import org.mariotaku.twidere.provider.TwidereDataStore.DirectMessages.Outbox
 import org.mariotaku.twidere.util.IntentUtils
-import org.mariotaku.twidere.util.TwidereCollectionUtils
-import org.mariotaku.twidere.util.Utils
 import org.mariotaku.twidere.util.collection.CompactHashSet
 
 /**
@@ -57,8 +55,9 @@ class AccountsManagerFragment : BaseSupportFragment(), LoaderCallbacks<Cursor?>,
         setHasOptionsMenu(true)
         val activity = activity
         preferences.registerOnSharedPreferenceChangeListener(this)
-        adapter = AccountsAdapter(activity)
-        Utils.configBaseAdapter(activity, adapter)
+        adapter = AccountsAdapter(activity).apply {
+            config(activity)
+        }
         adapter!!.setSortEnabled(true)
         adapter!!.setSwitchEnabled(true)
         adapter!!.setOnAccountToggleListener(this)
@@ -163,11 +162,11 @@ class AccountsManagerFragment : BaseSupportFragment(), LoaderCallbacks<Cursor?>,
         val values = ContentValues()
         values.put(Accounts.IS_ACTIVATED, true)
         var where = Expression.`in`(Columns.Column(Accounts.ACCOUNT_KEY), ArgsArray(trueIds.size))
-        var whereArgs = TwidereCollectionUtils.toStringArray(trueIds)
+        var whereArgs = trueIds.map(Any::toString).toTypedArray()
         cr.update(Accounts.CONTENT_URI, values, where.sql, whereArgs)
         values.put(Accounts.IS_ACTIVATED, false)
         where = Expression.`in`(Columns.Column(Accounts.ACCOUNT_KEY), ArgsArray(falseIds.size))
-        whereArgs = TwidereCollectionUtils.toStringArray(falseIds)
+        whereArgs = falseIds.map(Any::toString).toTypedArray()
         cr.update(Accounts.CONTENT_URI, values, where.sql, whereArgs)
     }
 

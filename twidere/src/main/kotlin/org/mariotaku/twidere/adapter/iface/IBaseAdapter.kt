@@ -19,9 +19,12 @@
 
 package org.mariotaku.twidere.adapter.iface
 
+import android.content.Context
 import android.widget.ListAdapter
+import org.mariotaku.twidere.Constants
 
 import org.mariotaku.twidere.util.MediaLoaderWrapper
+import org.mariotaku.twidere.util.Utils
 
 interface IBaseAdapter : ListAdapter {
 
@@ -40,4 +43,13 @@ interface IBaseAdapter : ListAdapter {
     fun notifyDataSetChanged()
 
     fun setLinkHighlightOption(option: String)
+
+    fun config(context: Context) {
+        val pref = context.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        isProfileImageDisplayed = pref.getBoolean(Constants.KEY_DISPLAY_PROFILE_IMAGE, true)
+        isDisplayNameFirst = pref.getBoolean(Constants.KEY_NAME_FIRST, true)
+        setLinkHighlightOption(pref.getString(Constants.KEY_LINK_HIGHLIGHT_OPTION, Constants.VALUE_LINK_HIGHLIGHT_OPTION_NONE)!!)
+        textSize = pref.getInt(Constants.KEY_TEXT_SIZE, Utils.getDefaultTextSize(context)).toFloat()
+        notifyDataSetChanged()
+    }
 }

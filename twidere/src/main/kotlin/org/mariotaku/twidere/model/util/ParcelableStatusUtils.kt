@@ -187,8 +187,7 @@ object ParcelableStatusUtils {
         if (attentions != null) {
             for (attention in attentions) {
                 if (TextUtils.equals(inReplyToUserId, attention.id)) {
-                    val host = UserKeyUtils.getUserHost(attention.ostatusUri,
-                            accountKey.host)
+                    val host = UserKeyUtils.getUserHost(attention.ostatusUri, accountKey.host)
                     return UserKey(inReplyToUserId, host)
                 }
             }

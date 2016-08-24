@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
+import static org.mariotaku.twidere.constant.IntentConstants.EXTRA_LIST_ID;
+
 /**
  * Created by mariotaku on 16/3/6.
  */

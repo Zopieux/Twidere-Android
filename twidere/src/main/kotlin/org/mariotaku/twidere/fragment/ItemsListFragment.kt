@@ -67,8 +67,7 @@ class ItemsListFragment : AbsContentListRecyclerViewFragment<VariousItemsAdapter
 
             override fun onMediaClick(holder: IStatusViewHolder, view: View, media: ParcelableMedia, statusPosition: Int) {
                 val status = dummyItemAdapter.getStatus(statusPosition) ?: return
-                IntentUtils.openMedia(activity, status, media, null,
-                        preferences.getBoolean(KEY_NEW_DOCUMENT_API))
+                IntentUtils.openMedia(activity, status, media, null, preferences.getBoolean(KEY_NEW_DOCUMENT_API))
                 // BEGIN HotMobi
                 val event = MediaEvent.create(activity, status, media,
                         TimelineType.OTHER, dummyItemAdapter.mediaPreviewEnabled)
